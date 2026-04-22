@@ -13,16 +13,13 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-cerberus.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 2.375
     minAngle: 0
-    maxAngle: 8
+    maxAngle: 24
     fireRate: 1.41
-    angleIncrease: 2
-    angleDecay: 8
+    angleIncrease: 8
+    angleDecay: 60
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
@@ -30,7 +27,7 @@
       path: /Audio/_ST/Weapons/Guns/echion-cerberus.ogg
       params:
         variation: 0.1
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/echion-cursor.rsi
       state: cerberus
@@ -51,16 +48,13 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-chimera.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 0.75
     minAngle: 1.5
-    maxAngle: 18
+    maxAngle: 15
     fireRate: 5
-    angleIncrease: 1.33
-    angleDecay: 16
+    angleIncrease: 2.25
+    angleDecay: 15
     selectedMode: FullAuto
     availableModes:
     - FullAuto
@@ -72,7 +66,7 @@
         volume: -2
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/echion-cursor.rsi
       state: chimera
@@ -95,17 +89,14 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-echidna.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     burstCooldown: 0.67
     cameraRecoilScalar: 0.75
     minAngle: 1.5
     maxAngle: 18
     burstFireRate: 14
-    angleIncrease: 2
-    angleDecay: 10
+    angleIncrease: 1
+    angleDecay: 6
     selectedMode: Burst
     availableModes:
     - Burst
@@ -114,7 +105,7 @@
       params:
         variation: 0.1
         volume: -2
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/echion-cursor.rsi
       state: echidna
@@ -135,16 +126,13 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-gorgon.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 2.35
-    minAngle: 0
-    maxAngle: 6
+    minAngle: 0.5
+    maxAngle: 8
     fireRate: 2
-    angleIncrease: 1.33
-    angleDecay: 16
+    angleIncrease: 2
+    angleDecay: 4
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
@@ -159,7 +147,7 @@
     pvsIncrease: 0.3
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/echion-cursor-large.rsi
       state: gorgon
@@ -180,9 +168,6 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-hydra.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 2.8
     minAngle: 6
@@ -200,7 +185,7 @@
         variation: 0.1
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/echion-cursor.rsi
       state: hydra
@@ -225,15 +210,12 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-minotaur.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 0.6
-    minAngle: 1.25
-    maxAngle: 18
-    fireRate: 7.3
-    angleIncrease: 1
+    minAngle: 1.5
+    maxAngle: 22
+    fireRate: 6
+    angleIncrease: 1.5
     angleDecay: 20
     selectedMode: FullAuto
     availableModes:
@@ -245,7 +227,7 @@
         volume: -2
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/echion-cursor.rsi
       state: minotaur
@@ -254,3 +236,5 @@
     muzzleFlash: StellarMuzzleFlashEchionLight
     ammoMaxReserves: 100
     ammoMagCapacity: 100
+    rampingFireRate: 7.3
+    rampingBulletsNeeded: 20

@@ -47,7 +47,7 @@
     pvsIncrease: 0.1
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/nanotrasen-cursor.rsi
       state: aegis
@@ -97,7 +97,7 @@
         variation: 0.1
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/nanotrasen-cursor.rsi
       state: bastion
@@ -152,7 +152,7 @@
         variation: 0.1
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/nanotrasen-cursor.rsi
       state: bulwark
@@ -205,7 +205,7 @@
       params:
         variation: 0.1
         volume: -2
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/nanotrasen-cursor.rsi
       state: guardian
@@ -240,9 +240,9 @@
   - type: Gun
     cameraRecoilScalar: 0.6
     minAngle: 1.25
-    maxAngle: 28
+    maxAngle: 20
     fireRate: 9
-    angleIncrease: 5
+    angleIncrease: 3
     angleDecay: 20
     selectedMode: FullAuto
     availableModes:
@@ -252,7 +252,7 @@
       params:
         variation: 0.1
         volume: -2
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/nanotrasen-cursor.rsi
       state: targe

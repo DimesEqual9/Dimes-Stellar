@@ -13,18 +13,15 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/cybersun-tsugaru.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     burstCooldown: 0.825
     shotsPerBurst: 2
     cameraRecoilScalar: 1
-    minAngle: 1.5
-    maxAngle: 18
+    minAngle: 2
+    maxAngle: 16
     burstFireRate: 20
     angleIncrease: 2
-    angleDecay: 10
+    angleDecay: 12
     selectedMode: Burst
     availableModes:
     - Burst
@@ -35,7 +32,7 @@
         volume: -1
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/cybersun-cursor.rsi
       state: tsugaru
@@ -62,9 +59,6 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/cybersun-sadamune.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 2
     minAngle: 0
@@ -87,7 +81,7 @@
     pvsIncrease: 0.3
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/cybersun-cursor-large.rsi
       state: sadamune

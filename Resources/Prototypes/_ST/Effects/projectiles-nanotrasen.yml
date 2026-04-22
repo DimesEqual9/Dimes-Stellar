@@ -46,7 +46,9 @@
   - type: HitscanBasicRaycast
     maxDistance: 30
   - type: StellarGunHitscan
-    maxDistance: 30
+    maxDistance: 14
+    minDistance: 9
+    falloffModifier: 0.30
     damage:
       types:
         Heat: 6.5
@@ -65,8 +67,8 @@
     maxDistance: 9
     damage:
       types:
-        Heat: 5
-        Blunt: 5
+        Heat: 4
+        Blunt: 4
     ray:
       sprite: _ST/Projectiles/Guns/nanotrasen-light.rsi
 
@@ -78,7 +80,9 @@
   - type: HitscanBasicRaycast
     maxDistance: 9
   - type: StellarGunHitscan
-    maxDistance: 9
+    maxDistance: 12
+    minDistance: 6
+    falloffModifier: 0.30
     damage:
       types:
         Heat: 4
@@ -92,10 +96,13 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: StellarGunHitscan
+    maxDistance: 10
+    minDistance: 4
+    falloffModifier: 0.30
     damage:
       types:
-        Heat: 2
-        Blunt: 3
+        Heat: 6
+        Blunt: 6
     ray:
       sprite: _ST/Projectiles/Guns/nanotrasen-light.rsi
 
@@ -105,6 +112,9 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: StellarGunHitscan
+    maxDistance: 12
+    minDistance: 6
+    falloffModifier: 0.30
     damage:
       types:
         Heat: 5

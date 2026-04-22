@@ -53,8 +53,7 @@
   - type: HitscanBasicRaycast
   - type: HitscanReflect
   - type: StellarGunHitscan
-    lightColor: "#83db2b"
-    hitColor: "#83db2b"
+    lightColor: "#fcbf41"
     unshaded: true
     ray:
       sprite: _ST/Projectiles/Guns/tachyon-light.rsi
@@ -67,10 +66,12 @@
   - type: HitscanBasicRaycast
     maxDistance: 12.5
   - type: StellarGunHitscan
-    maxDistance: 12.5
+    maxDistance: 10
+    minDistance: 6
+    falloffModifier: 0.60
     damage:
       types:
-        Heat: 6
+        Heat: 10
         Caustic: 10
     ray:
       sprite: _ST/Projectiles/Guns/tachyon-light.rsi
@@ -83,7 +84,9 @@
   - type: HitscanBasicRaycast
     maxDistance: 25
   - type: StellarGunHitscan
-    maxDistance: 25
+    maxDistance: 20
+    minDistance: 15
+    falloffModifier: 0.80
     damage:
       types:
         Heat: 62.5

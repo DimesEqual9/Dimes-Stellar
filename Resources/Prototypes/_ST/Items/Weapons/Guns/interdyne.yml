@@ -13,15 +13,12 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/interdyne-needle.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 0.675
-    minAngle: 2.25
-    maxAngle: 20
+    minAngle: 3
+    maxAngle: 15
     fireRate: 6.5
-    angleIncrease: 2
+    angleIncrease: 3
     angleDecay: 10
     selectedMode: SemiAuto
     availableModes:
@@ -31,7 +28,7 @@
       params:
         variation: 0.1
         volume: -2
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/interdyne-cursor.rsi
       state: disp-needle
@@ -54,9 +51,6 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/interdyne-ivdyne.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 0.5
     minAngle: 1.5
@@ -71,7 +65,7 @@
       path: /Audio/_ST/Weapons/Guns/interdyne-ivdyne.ogg
       params:
         variation: 0.1
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/interdyne-cursor.rsi
       state: iv-dyne
@@ -98,16 +92,13 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/interdyne-symptom.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 0.5
-    minAngle: 1.25
-    maxAngle: 18
+    minAngle: 1.5
+    maxAngle: 24
     fireRate: 6.25
-    angleIncrease: 1
-    angleDecay: 20
+    angleIncrease: 1.5
+    angleDecay: 16
     selectedMode: FullAuto
     availableModes:
     - FullAuto
@@ -115,7 +106,7 @@
       path: /Audio/_ST/Weapons/Guns/interdyne-symptom.ogg
       params:
         variation: 0.1
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/interdyne-cursor.rsi
       state: smg1
@@ -142,16 +133,13 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/interdyne-diagnosis.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 0.6
-    minAngle: 1.25
-    maxAngle: 18
+    minAngle: 4
+    maxAngle: 16
     fireRate: 9.1
-    angleIncrease: 1
-    angleDecay: 20
+    angleIncrease: 4
+    angleDecay: 32
     selectedMode: FullAuto
     availableModes:
     - FullAuto
@@ -161,7 +149,7 @@
         variation: 0.2
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/interdyne-cursor.rsi
       state: dual-smgs
@@ -173,8 +161,8 @@
     ammoMaxReserves: 66
     ammoMagCapacity: 33
     multiShotSpread: 5
-    multiShotWiggleMin: -10
-    multiShotWiggleMax: 10
+    multiShotWiggleMin: -5
+    multiShotWiggleMax: 5
     multiShotAmount: 2
     soundReload:
       path: /Audio/_ST/Weapons/Guns/Reload/interdyne-reload-diagnosis.ogg
@@ -192,9 +180,6 @@
   - type: MagazineVisuals
   - type: Item
     sprite: _ST/Items/Weapons/Guns/interdyne-antibody.rsi
-    size: Small
-    shape:
-    - 0,0,1,1
   - type: Gun
     cameraRecoilScalar: 2.8
     minAngle: 6
@@ -211,7 +196,7 @@
         variation: 0.1
   - type: Wieldable
   - type: GunRequiresWield
-  - type: StellarGunCrosshair
+  - type: StellarCrosshair
     rsi:
       sprite: _ST/Interface/Crosshair/interdyne-cursor.rsi
       state: antibody
