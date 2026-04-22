@@ -17,7 +17,7 @@
     cameraRecoilScalar: 2.375
     minAngle: 0
     maxAngle: 24
-    fireRate: 1.41
+    fireRate: 1.5
     angleIncrease: 8
     angleDecay: 60
     selectedMode: SemiAuto
@@ -34,8 +34,8 @@
   - type: StellarGunReloadable
     shootable: StellarHitscanEchionCerberus
     muzzleFlash: StellarMuzzleFlashEchionHeavy
-    ammoMaxReserves: 10
-    ammoMagCapacity: 10
+    ammoMaxReserves: 13
+    ammoMagCapacity: 13
 
 - type: entity
   parent: StellarWeaponGorlexBase
@@ -73,10 +73,10 @@
   - type: StellarGunReloadable
     shootable: StellarHitscanEchionChimera
     muzzleFlash: StellarMuzzleFlashEchionMedium
-    ammoMaxReserves: 77
-    ammoMagCapacity: 77
-    rampingFireRate: 6
-    rampingBulletsNeeded: 19
+    ammoMaxReserves: 104
+    ammoMagCapacity: 104
+    rampingFireRate: 5.5
+    rampingBulletsNeeded: 10
 
 - type: entity
   parent: StellarWeaponGorlexBase
@@ -90,11 +90,11 @@
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-echidna.rsi
   - type: Gun
-    burstCooldown: 0.67
+    burstCooldown: 0.05
     cameraRecoilScalar: 0.75
     minAngle: 1.5
     maxAngle: 18
-    burstFireRate: 14
+    burstFireRate: 15
     angleIncrease: 1
     angleDecay: 6
     selectedMode: Burst
@@ -112,8 +112,8 @@
   - type: StellarGunReloadable
     shootable: StellarHitscanEchionEchidna
     muzzleFlash: StellarMuzzleFlashEchionLight
-    ammoMaxReserves: 42
-    ammoMagCapacity: 42
+    ammoMaxReserves: 33
+    ammoMagCapacity: 33
 
 - type: entity
   parent: StellarWeaponGorlexBase
@@ -130,7 +130,7 @@
     cameraRecoilScalar: 2.35
     minAngle: 0.5
     maxAngle: 8
-    fireRate: 2
+    fireRate: 1.75
     angleIncrease: 2
     angleDecay: 4
     selectedMode: SemiAuto
@@ -154,8 +154,8 @@
   - type: StellarGunReloadable
     shootable: StellarHitscanEchionGorgon
     muzzleFlash: StellarMuzzleFlashEchionMedium
-    ammoMaxReserves: 15
-    ammoMagCapacity: 15
+    ammoMaxReserves: 24
+    ammoMagCapacity: 24
 
 - type: entity
   parent: StellarWeaponGorlexBase
@@ -170,10 +170,10 @@
     sprite: _ST/Items/Weapons/Guns/echion-hydra.rsi
   - type: Gun
     cameraRecoilScalar: 2.8
-    minAngle: 6
-    maxAngle: 30
-    fireRate: 1.33
-    angleIncrease: 8
+    minAngle: 0
+    maxAngle: 15
+    fireRate: 2.67
+    angleIncrease: 3
     angleDecay: 3
     selectedMode: FullAuto
     availableModes:
@@ -192,12 +192,12 @@
   - type: StellarGunReloadable
     shootable: StellarHitscanEchionHydra
     muzzleFlash: StellarMuzzleFlashEchionHeavy
-    ammoMaxReserves: 26
-    ammoMagCapacity: 26
-    multiShotSpread: 45
-    multiShotWiggleMin: -5
-    multiShotWiggleMax: 5
-    multiShotAmount: 6
+    ammoMaxReserves: 56
+    ammoMagCapacity: 56
+    multiShotSpread: 12
+    multiShotWiggleMin: -3
+    multiShotWiggleMax: 3
+    multiShotAmount: 3
 
 - type: entity
   parent: StellarWeaponGorlexBase
@@ -214,7 +214,7 @@
     cameraRecoilScalar: 0.6
     minAngle: 1.5
     maxAngle: 22
-    fireRate: 6
+    fireRate: 7
     angleIncrease: 1.5
     angleDecay: 20
     selectedMode: FullAuto
@@ -236,5 +236,3 @@
     muzzleFlash: StellarMuzzleFlashEchionLight
     ammoMaxReserves: 100
     ammoMagCapacity: 100
-    rampingFireRate: 7.3
-    rampingBulletsNeeded: 20

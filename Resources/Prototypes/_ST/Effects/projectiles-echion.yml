@@ -83,14 +83,14 @@
   - type: HitscanBasicRaycast
     maxDistance: 11
   - type: StellarGunHitscan
-    maxDistance: 11
+    maxDistance: 9
     minDistance: 7
-    falloffModifier: 0.50
+    falloffModifier: 0.40
     damage:
       types:
         Heat: 5
-        Radiation: 50
-        Structural: 50
+        Radiation: 40
+        Structural: 40
     ray:
       sprite: _ST/Projectiles/Guns/echion-heavy.rsi
 
@@ -107,9 +107,9 @@
     falloffModifier: 0.60
     damage:
       types:
-        Heat: 1
-        Radiation: 15
-        Structural: 15
+        Heat: 2
+        Radiation: 10
+        Structural: 10
     ray:
       sprite: _ST/Projectiles/Guns/echion-medium.rsi
 
@@ -119,11 +119,11 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 15
+    maxDistance: 11
   - type: StellarGunHitscan
-    maxDistance: 15
-    minDistance: 10
-    falloffModifier: 0.60
+    maxDistance: 11
+    minDistance: 7
+    falloffModifier: 0.40
     damage:
       types:
         Heat: 3
@@ -157,15 +157,16 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 5
+    maxDistance: 9
   - type: StellarGunHitscan
-    maxDistance: 5
-    falloffModifier: 1
+    maxDistance: 9
+    minDistance: 7
+    falloffModifier: 0.70
     damage:
       types:
         Heat: 2
-        Radiation: 8
-        Structural: 8
+        Radiation: 7
+        Structural: 7
     ray:
       sprite: _ST/Projectiles/Guns/echion-heavy.rsi
 
@@ -183,7 +184,7 @@
     damage:
       types:
         Heat: 2
-        Radiation: 9
-        Structural: 9
+        Radiation: 8
+        Structural: 8
     ray:
       sprite: _ST/Projectiles/Guns/echion-light.rsi
