@@ -44,7 +44,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 30
+    maxDistance: 14
   - type: StellarGunHitscan
     maxDistance: 14
     minDistance: 9
@@ -62,9 +62,11 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 9
+    maxDistance: 11
   - type: StellarGunHitscan
-    maxDistance: 9
+    maxDistance: 11
+    minDistance: 5
+    falloffModifier: 0.30
     damage:
       types:
         Heat: 4
@@ -78,7 +80,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 9
+    maxDistance: 12
   - type: StellarGunHitscan
     maxDistance: 12
     minDistance: 6
@@ -95,6 +97,8 @@
   id: StellarHitscanNanotrasenGuardian
   categories: [ HideSpawnMenu ]
   components:
+  - type: HitscanBasicRaycast
+    maxDistance: 10
   - type: StellarGunHitscan
     maxDistance: 10
     minDistance: 4
@@ -111,6 +115,8 @@
   id: StellarHitscanNanotrasenTarge
   categories: [ HideSpawnMenu ]
   components:
+  - type: HitscanBasicRaycast
+    maxDistance: 12
   - type: StellarGunHitscan
     maxDistance: 12
     minDistance: 6

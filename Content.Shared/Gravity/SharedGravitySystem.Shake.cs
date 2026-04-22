@@ -61,14 +61,16 @@ public abstract partial class SharedGravitySystem
 
         return;
         // ES END
-        if (!TryComp<GravityShakeComponent>(uid, out var shake))
-        {
-            shake = AddComp<GravityShakeComponent>(uid);
-            shake.NextShake = Timing.CurTime;
-        }
+        // Begin Stellar Removals
+        // if (!TryComp<GravityShakeComponent>(uid, out var shake))
+        // {
+        //     shake = AddComp<GravityShakeComponent>(uid);
+        //     shake.NextShake = Timing.CurTime;
+        // }
 
-        shake.ShakeTimes = 10;
-        Dirty(uid, shake);
+        // shake.ShakeTimes = 10;
+        // Dirty(uid, shake);
+        // End Stellar Removals
     }
 
     protected virtual void ShakeGrid(EntityUid uid, GravityComponent? comp = null) {}

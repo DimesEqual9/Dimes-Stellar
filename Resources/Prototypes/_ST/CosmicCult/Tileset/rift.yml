@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: 2026 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-CosmicCult
+
+- type: entity
+  id: CosmicMalignRift
+  name: malign rift
+  description: A malign light pours forth from within.
+  placement:
+    mode: SnapgridCenter
+  categories: [ ForkFiltered ]
+  components:
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _ST/CosmicCult/Tileset/rift.rsi
+    drawdepth: Mobs
+    snapCardinals: true
+    offset: 0,0.27
+    layers:
+    - state: base
+    - state: vfx
+      shader: unshaded
+  - type: Clickable
+  - type: CosmicExamine
+    cultistText: cosmic-examine-text-rift
+    othersText: cosmic-examine-text-crew-rift
+  - type: CosmicRift
+  - type: CosmicCorrupting
+    corruptionMaxTicks: 6
+    corruptionSpeed: 8
+    corruptionChance: 1
+    corruptionReduction: 0.16
+  - type: PointLight
+    color: "#42a4ae"
+    radius: 2.5
+    energy: 6
+    castShadows: false
+    netsync: false
+  - type: LightBehaviour
+    behaviours:
+    - !type:FadeBehaviour
+      interpolate: Linear
+      minDuration: 4
+      maxDuration: 4
+      startValue: 3
+      endValue: 9
+      property: Energy
+      enabled: true
+      isLooped: true
+      reverseWhenFinished: true

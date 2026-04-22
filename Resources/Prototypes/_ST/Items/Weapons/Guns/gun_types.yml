@@ -66,6 +66,11 @@
 
 ### UNIQUE / EXOTIC
 - type: stellarGunType
+  id: StellarGunTypeMisc # Use this for any miscellaneous, and then disable examine text on the componentry.
+  ammo: stellar-ammo-pistol
+  suffix: stellar-ammo-suffix-ammo
+
+- type: stellarGunType
   id: StellarGunTypeEchion # Yummy!
   ammo: stellar-ammo-echion
   suffix: stellar-ammo-suffix-injection

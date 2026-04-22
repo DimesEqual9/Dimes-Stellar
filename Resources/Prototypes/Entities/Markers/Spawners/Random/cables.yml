@@ -11,10 +11,10 @@
       state: hvcable_3
     - sprite: /Textures/_ST/Tileset/Power/hv_cable.rsi # Stellar
       state: hvcable_12
-  - type: RandomSpawner
-    prototypes:
-    - CableHV
-    chance: 0.5
+  - type: EntityTableSpawner
+    table:
+      id: CableHV
+      prob: 0.5
 
 - type: entity
   parent: MarkerBase
@@ -34,11 +34,11 @@
       state: mvcable_12
       color: Yellow
     # - sprite: Structures/Power/Cables/mv_cable.rsi # Stellar
-    #   state: mvstripes_12 # Stellar
-  - type: RandomSpawner
-    prototypes:
-    - CableMV
-    chance: 0.5
+    #  state: mvstripes_12 # Stellar
+  - type: EntityTableSpawner
+    table:
+      id: CableMV
+      prob: 0.5
 
 - type: entity
   parent: MarkerBase
@@ -55,7 +55,7 @@
     - sprite: /Textures/_ST/Tileset/Power/lv_cable.rsi # Stellar
       state: lvcable_12
       color: Green
-  - type: RandomSpawner
-    prototypes:
-      - CableApcExtension
-    chance: 0.5
+  - type: EntityTableSpawner
+    table:
+      id: CableApcExtension
+      prob: 0.5

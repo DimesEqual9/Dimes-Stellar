@@ -5,9 +5,8 @@
 - type: entity
   parent: StellarHardsuitBase
   id: StellarHardsuitCybersunAssassin
-  name: LOREM IPSUM
+  name: techline hardsuit
   description: LOREM IPSUM
-  suffix: empowered
   categories: [ ForkFiltered ]
   components:
   - type: SlotBlock
@@ -40,9 +39,8 @@
 - type: entity
   parent: StellarHardsuitBase
   id: StellarHardsuitCybersunOperative
-  name: LOREM IPSUM
+  name: sable slyphsuit
   description: LOREM IPSUM
-  suffix: empowered
   categories: [ ForkFiltered ]
   components:
   - type: SlotBlock

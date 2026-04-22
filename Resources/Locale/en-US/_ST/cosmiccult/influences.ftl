@@ -1,5 +1,6 @@
 influence-type-active = Active
 influence-type-passive = Passive
+influence-type-aegis = Aegis
 
 ## ACTIVE INFLUENCES
 influence-name-lapse = Aberrant Lapse
@@ -32,4 +33,9 @@ influence-name-stride = Astral Stride
 influence-description-stride = Astral energy invigorates your every move, subtly hastening your speed.
 
 influence-name-vitality = Vacuous Vitality
-influence-description-vitality = The starless emptiness of The Monument overwhelms your mind and body. Your corporeal form slowly regenerates while in its presence.
+influence-description-vitality = The starless emptiness of The Monument overwhelms your mind and body. Your corporeal form continuously restores itself over time.
+
+
+## FILLER INFLUENCE
+influence-name-aegis = Astral Aegis
+influence-description-aegis = While bearing an Astral Brand, Astral Aegis wards you from damage. You may gain this influence multiple times, with each increasing the amount of times you take reduced damage.

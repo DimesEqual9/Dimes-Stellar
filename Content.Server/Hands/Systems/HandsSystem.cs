@@ -153,14 +153,19 @@ namespace Content.Server.Hands.Systems
             var ev = new BeforeThrowEvent(throwEnt.Value, direction, throwSpeed, player);
             RaiseLocalEvent(player, ref ev);
 
-            if (ev.Cancelled)
+            // Begin Stellar - Allow thrown items to self-modify
+            var evt = new BeforeThrownEvent(ev.ItemUid, ev.Direction, ev.ThrowSpeed, ev.PlayerUid);
+            RaiseLocalEvent(ev.ItemUid, ref evt);
+
+            if (ev.Cancelled || evt.Cancelled)
                 return true;
+            // End Stellar - Allow thrown items to self-modify
 
             // This can grief the above event so we raise it afterwards
             if (IsHolding((player, hands), throwEnt, out _) && !TryDrop(player, throwEnt.Value))
                 return false;
 
-            _throwingSystem.TryThrow(ev.ItemUid, ev.Direction, ev.ThrowSpeed, ev.PlayerUid, compensateFriction: !HasComp<LandAtCursorComponent>(ev.ItemUid));
+            _throwingSystem.TryThrow(evt.ItemUid, evt.Direction, evt.ThrowSpeed, evt.PlayerUid, compensateFriction: !HasComp<LandAtCursorComponent>(evt.ItemUid)); // Stellar - Allow thrown items to self-modify
 
             return true;
         }

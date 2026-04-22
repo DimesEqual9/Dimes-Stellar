@@ -3,206 +3,169 @@
 //
 // SPDX-License-Identifier: LicenseRef-CosmicCult
 
-using Content.Server._ST.CosmicCult;
-using Content.Server.Actions;
-using Content.Server.AlertLevel;
-using Content.Server.Audio;
-using Content.Server.Chat.Systems;
-using Content.Server.GameTicking.Events;
-using Content.Server.Pinpointer;
-using Content.Server.Popups;
-using Content.Server.Station.Systems;
-using Content.Shared.Alert;
-using Content.Shared.DoAfter;
-using Content.Shared.Examine;
-using Content.Shared.Eye;
-using Content.Shared.Hands;
-using Content.Shared.Inventory.Events;
+using System.Linq;
+using Content.Server.Antag;
+using Content.Shared._ES.Camera;
+using Content.Shared.Damage.Systems;
+using Content.Shared.Interaction;
 using Content.Shared.Movement.Systems;
-using Content.Shared.Popups;
+using Content.Shared.Random.Helpers;
 using Content.Shared.StatusEffectNew;
-using Content.Stellar.Server.CosmicCult.EntitySystems;
+using Content.Stellar.Shared._ES.Core.Timer;
 using Content.Stellar.Shared.CosmicCult.Components;
 using Content.Stellar.Shared.CosmicCult;
-using Robust.Server.GameObjects;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.EntitySerialization.Systems;
-using Robust.Shared.EntitySerialization;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
-using Robust.Shared.Timing;
-using Robust.Shared.Utility;
+using Content.Stellar.Shared.CosmicCult.Prototypes;
 
 namespace Content.Stellar.Server.CosmicCult;
 
 public sealed partial class CosmicCultSystem : SharedCosmicCultSystem
 {
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly AlertLevelSystem _alert = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly CosmicCorruptingSystem _corrupting = default!;
-    [Dependency] private readonly CosmicCultRuleSystem _cultRule = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
-    [Dependency] private readonly MonumentSystem _monument = default!;
+    [Dependency] private readonly AntagSelectionSystem _antag = default!;
+    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency] private readonly DamageableSystem _damage = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-
-    private readonly ResPath _mapPath = new("Maps/_ST/Other/cosmicvoid.yml");
-
-    private static readonly EntProtoId CosmicEchoVfx = "CosmicEchoVfx";
-    private static readonly EntProtoId EntropicDegen = "EntropicDegen";
+    [Dependency] private readonly ESEntityTimerSystem _entityTimer = default!;
+    [Dependency] private readonly ESScreenshakeSystem _shake = default!;
+    [Dependency] private readonly StatusEffectsSystem _status = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStart);
-        SubscribeLocalEvent<CosmicCultVoterEligibilityEvent>(OnCheckEligibility);
-
         SubscribeLocalEvent<CosmicCultComponent, ComponentInit>(OnStartCultist);
-        SubscribeLocalEvent<CosmicCultLeadComponent, ComponentInit>(OnStartCultLead);
-        SubscribeLocalEvent<CosmicCultComponent, GetVisMaskEvent>(OnGetVisMask);
 
-        SubscribeLocalEvent<CosmicEquipmentComponent, GotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<CosmicEquipmentComponent, GotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<CosmicEquipmentComponent, GotEquippedHandEvent>(OnGotHeld);
-        SubscribeLocalEvent<CosmicEquipmentComponent, GotUnequippedHandEvent>(OnGotUnheld);
-
-        SubscribeLocalEvent<InfluenceStrideComponent, ComponentInit>(OnStartInfluenceStride);
-        SubscribeLocalEvent<InfluenceStrideComponent, ComponentRemove>(OnEndInfluenceStride);
-        SubscribeLocalEvent<InfluenceStrideComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMoveSpeed);
         SubscribeLocalEvent<CosmicImposingComponent, ComponentInit>(OnStartImposition);
         SubscribeLocalEvent<CosmicImposingComponent, ComponentRemove>(OnEndImposition);
+        SubscribeLocalEvent<InfluenceStrideComponent, ComponentInit>(OnStartInfluenceStride);
+        SubscribeLocalEvent<InfluenceStrideComponent, ComponentRemove>(OnEndInfluenceStride);
+
+        SubscribeLocalEvent<InfluenceStrideComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMoveSpeed);
         SubscribeLocalEvent<CosmicImposingComponent, RefreshMovementSpeedModifiersEvent>(OnImpositionMoveSpeed);
-
-        SubscribeLocalEvent<CosmicCultExamineComponent, ExaminedEvent>(OnCosmicCultExamined);
-
-        SubscribeFinale(); //Hook up the cosmic cult finale system
     }
 
-    public void MalignEcho(Entity<CosmicCultComponent> uid)
+    public override void Update(float frameTime)
     {
-        if (_cultRule.AssociatedGamerule(uid) is not { } cult)
+        base.Update(frameTime);
+
+        var finaleQuery = EntityQueryEnumerator<InfluenceVitalityComponent>();
+        while (finaleQuery.MoveNext(out var uid, out var comp))
+        {
+            if (Timing.CurTime >= comp.CheckTimer)
+            {
+
+                _damage.TryChangeDamage(uid, comp.Healing * -1);
+                comp.CheckTimer = Timing.CurTime + comp.CheckWait;
+            }
+        }
+    }
+    private void GiveInfluence(Entity<CosmicCultComponent> ent, InfluencePrototype proto)
+    {
+        if (proto.InfluenceType == "influence-type-active")
+        {
+            var actionEnt = Actions.AddAction(ent, proto.Action);
+            ent.Comp.ActionEntities.Add(actionEnt);
+        }
+        else if (proto.InfluenceType == "influence-type-passive")
+        {
+            if (proto.Add != null)
+            {
+                foreach (var reg in proto.Add.Values)
+                {
+                    var compType = reg.Component.GetType();
+                    if (HasComp(ent, compType))
+                        continue;
+                    AddComp(ent, _componentFactory.GetComponent(compType));
+                }
+            }
+
+            if (proto.Remove != null)
+            {
+                foreach (var reg in proto.Remove.Values)
+                {
+                    RemComp(ent, reg.Component.GetType());
+                }
+            }
+        }
+        else if (proto.InfluenceType == "influence-type-aegis")
+        {
+            ent.Comp.AstralAegisStacks += 2;
+        }
+        _antag.SendBriefing(ent, Loc.GetString(proto.Name), Color.FromHex("#cae8e8"), null);
+        _antag.SendBriefing(ent, Loc.GetString(proto.Description), Color.FromHex("#4cabb3"), null);
+        Dirty(ent);
+    }
+
+    protected override void OnMonumentInteracted(Entity<CosmicMonumentComponent> ent, ref InteractHandEvent args)
+    {
+        var target = args.User;
+
+        if (args.Handled || !TryComp<CosmicCultComponent>(target, out var cultComp) || _status.HasStatusEffect(target, StunId))
             return;
-        if (cult.Comp.CurrentTier > 1 && !_random.Prob(0.5f))
-            Spawn(CosmicEchoVfx, Transform(uid).Coordinates);
-    }
 
-    #region Housekeeping
+        if (cultComp.MonumentVisits <= 0 || cultComp.UnlockedInfluences.Count <= 0)
+            return;
 
-    // Rogue Ascendants use this too, which are generalized MidRoundAntags, so we keep the map around. If you're porting cosmic cult, and do not want rogue ascendants, feel free to move this into selective usage akin to NukeOps base.
-    /// <summary>
-    /// Creates the Cosmic Void pocket dimension map.
-    /// </summary>
-    private void OnRoundStart(RoundStartingEvent ev)
-    {
-        if (_mapLoader.TryLoadMap(_mapPath, out var map, out _, new DeserializationOptions { InitializeMaps = true }))
-            _map.SetPaused(map.Value.Comp.MapId, false);
-    }
+        var influenceToGain = Random.PickAndTake(cultComp.UnlockedInfluences);
+        if (influenceToGain.Id == "InfluenceAstralAegis")
+            cultComp.UnlockedInfluences.Add(influenceToGain, 10); // If we rolled Aegis, add it back to the pool.
+        else
+            cultComp.OwnedInfluences.Add(influenceToGain);
 
-    private void OnCheckEligibility(ref CosmicCultVoterEligibilityEvent args)
-    {
-        args.Eligible = HasComp<CosmicCultComponent>(args.Player.AttachedEntity);
-    }
+        if (!ProtoMan.TryIndex(influenceToGain, out var proto))
+            return;
 
-    private void OnCosmicCultExamined(Entity<CosmicCultExamineComponent> ent, ref ExaminedEvent args)
-    {
-        args.PushMarkup(Loc.GetString(EntitySeesCult(args.Examiner) ? ent.Comp.CultistText : ent.Comp.OthersText));
-    }
-    #endregion
-
-    #region Init Cult
-    /// <summary>
-    /// Add the starting powers to the cultist.
-    /// </summary>
-    private void OnStartCultist(Entity<CosmicCultComponent> uid, ref ComponentInit args)
-    {
-        foreach (var actionId in uid.Comp.CosmicCultActions)
+        cultComp.MonumentVisits--;
+        if (TryComp<CosmicShiftedComponent>(target, out var shiftComp))
         {
-            var actionEnt = _actions.AddAction(uid, actionId);
-            uid.Comp.ActionEntities.Add(actionEnt);
+            shiftComp.Occupied = true;
+            _entityTimer.SpawnMethodTimer(TimeSpan.FromSeconds(2.5f), () => shiftComp.Occupied = false); // I hate doing this
         }
-        _eye.RefreshVisibilityMask(uid.Owner);
-        _alerts.ShowAlert(uid.Owner, uid.Comp.EntropyAlert);
+
+        var shakeData = new ESScreenshakeParameters() { Trauma = 0.3f, DecayRate = 0.075f, Frequency = 0.008f };
+        RaiseNetworkEvent(new InfluenceVisualsEvent(GetNetEntity(target), GetNetEntity(ent.Owner), proto.Icon, cultComp.MonumentGachaSfx));
+        _shake.Screenshake(target, shakeData, null);
+        _status.TryAddStatusEffectDuration(target, StunId, TimeSpan.FromSeconds(2.5f));
+        _entityTimer.SpawnMethodTimer(TimeSpan.FromSeconds(1.5f), () => GiveInfluence((target, cultComp), proto)); // I hate doing this
+        args.Handled = true;
+        Dirty(target, cultComp);
     }
 
-    /// <summary>
-    /// Add the Monument summon action to the cult lead.
-    /// </summary>
-    private void OnStartCultLead(Entity<CosmicCultLeadComponent> uid, ref ComponentInit args)
+    private void OnStartCultist(Entity<CosmicCultComponent> ent, ref ComponentInit args)
     {
-        _actions.AddAction(uid, ref uid.Comp.CosmicMonumentPlaceActionEntity, uid.Comp.CosmicMonumentPlaceAction, uid);
-    }
+        Actions.AddAction(ent, ref ent.Comp.CosmicShiftActionActionEntity, ent.Comp.CosmicShiftAction, ent);
 
-    private void OnGetVisMask(Entity<CosmicCultComponent> uid, ref GetVisMaskEvent args)
-    {
-        args.VisibilityMask |= (int)VisibilityFlags.CosmicCultMonument;
-    }
-
-    /// <summary>
-    /// Called by Cosmic Siphon. Increments the Cult's global objective tracker.
-    /// </summary>
-    #endregion
-
-    #region Equipment Pickup
-    private void OnGotEquipped(Entity<CosmicEquipmentComponent> ent, ref GotEquippedEvent args)
-    {
-        if (!EntityIsCultist(args.Equipee))
-            _statusEffects.TrySetStatusEffectDuration(args.Equipee, EntropicDegen, out _);
-    }
-
-    private void OnGotUnequipped(Entity<CosmicEquipmentComponent> ent, ref GotUnequippedEvent args)
-    {
-        if (!EntityIsCultist(args.Equipee))
-            _statusEffects.TryRemoveStatusEffect(args.Equipee, EntropicDegen);
-    }
-    private void OnGotHeld(Entity<CosmicEquipmentComponent> ent, ref GotEquippedHandEvent args)
-    {
-        if (!EntityIsCultist(args.User))
+        foreach (var actionId in ent.Comp.CosmicCultActions)
         {
-            _statusEffects.TrySetStatusEffectDuration(args.User, EntropicDegen, out _);
-            _popup.PopupEntity(Loc.GetString("cosmiccult-gear-pickup", ("ITEM", args.Equipped)), args.User, args.User, PopupType.MediumCaution);
+            var actionEnt = Actions.AddAction(ent, actionId);
+            ent.Comp.ActionEntities.Add(actionEnt);
         }
-    }
 
-    private void OnGotUnheld(Entity<CosmicEquipmentComponent> ent, ref GotUnequippedHandEvent args)
-    {
-        if (!EntityIsCultist(args.User))
-            _statusEffects.TryRemoveStatusEffect(args.User, EntropicDegen);
+        foreach (var influence in ProtoMan.EnumeratePrototypes<InfluencePrototype>().Where(influence => influence.Tier == 1))
+        {
+            if (ent.Comp.UnlockedInfluences.ContainsKey(influence))
+                continue;
+            ent.Comp.UnlockedInfluences.Add(influence, influence.Weight);
+        }
+        ent.Comp.UnlockedInfluences.Add("InfluenceAstralAegis", 5);
+        Dirty(ent);
     }
-    #endregion
 
     #region Movespeed
     private void OnStartInfluenceStride(Entity<InfluenceStrideComponent> uid, ref ComponentInit args) // i wish movespeed was easier to work with
     {
         _movementSpeed.RefreshMovementSpeedModifiers(uid);
     }
-    private void OnEndInfluenceStride(Entity<InfluenceStrideComponent> uid, ref ComponentRemove args) // that movespeed applies more-or-less correctly
+    private void OnEndInfluenceStride(Entity<InfluenceStrideComponent> uid, ref ComponentRemove args) // these functions just make sure
     {
         _movementSpeed.RefreshMovementSpeedModifiers(uid);
     }
-    private void OnStartImposition(Entity<CosmicImposingComponent> uid, ref ComponentInit args) // these functions just make sure
+    private void OnStartImposition(Entity<CosmicImposingComponent> uid, ref ComponentInit args) // that movespeed applies more-or-less correctly
     {
         _movementSpeed.RefreshMovementSpeedModifiers(uid);
-        EnsureComp<CosmicCultExamineComponent>(uid).CultistText = "cosmic-examine-text-malignecho";
     }
     private void OnEndImposition(Entity<CosmicImposingComponent> uid, ref ComponentRemove args) // as various cosmic cult effects get added and removed
     {
         _movementSpeed.RefreshMovementSpeedModifiers(uid);
-        RemComp<CosmicCultExamineComponent>(uid);
     }
 
     private void OnRefreshMoveSpeed(EntityUid uid, InfluenceStrideComponent comp, RefreshMovementSpeedModifiersEvent args)

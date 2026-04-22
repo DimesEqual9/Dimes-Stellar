@@ -20,7 +20,7 @@ namespace Content.Shared.Body.Systems;
 /// </summary>
 public abstract class SharedInternalsSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
+    // [Dependency] private readonly AlertsSystem _alerts = default!; // Stellar - we don't use this
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedGasTankSystem _gasTank = default!;

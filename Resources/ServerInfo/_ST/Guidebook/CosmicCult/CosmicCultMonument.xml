@@ -7,9 +7,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 <Document>
  # The Monument
   <Box>
-    <GuideEntityEmbed Entity="MonumentCosmicCult1" Caption=""/>
-    <GuideEntityEmbed Entity="MonumentCosmicCult2" Caption=""/>
-    <GuideEntityEmbed Entity="MonumentCosmicCult3" Caption=""/>
   </Box>
 
   Before you set about your goals, The Monument must be [italic][color=#4cabb3]Beckoned[/color][/italic] by your cult leader. When first built, the Monument is invisible, intangible, and effectively imperceptible to any non-cultist. Once empowered, the Monument will become both visible and tangible to all individuals aboard the station.
@@ -24,7 +21,7 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Beckoning the Unknown
   <Box>
-    <GuideEntityEmbed Entity="PlushieCosmicCult" Caption=""/>
+
   </Box>
 
   Should you succeed in fully empowering the Monument to the third stage, it will hunger for one last threshold of entropy - fuel to feed the final curtain call. Once enough entropy has been infused, the empowered Monument will glow, signalling that it can now be used to [color=#4cabb3][bold]Beckon[/bold][/color] the Unknown. Any cultist may do so by interacting with the Monument.
@@ -39,14 +36,10 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
   Be aware that activating a Glyph will sap the health of all cultists aiding in the Glyph's activation!
 
   <Box>
-    <GuideEntityEmbed Entity="CosmicGlyphKnowledge" Caption=""/>
-    <GuideEntityEmbed Entity="CosmicGlyphProjection" Caption=""/>
-    <GuideEntityEmbed Entity="CosmicGlyphWarding" Caption=""/>
+
   </Box>
   <Box>
-    <GuideEntityEmbed Entity="CosmicGlyphBlades" Caption=""/>
-    <GuideEntityEmbed Entity="CosmicGlyphCessation" Caption=""/>
-    <GuideEntityEmbed Entity="CosmicGlyphTruth" Caption=""/>
+
   </Box>
   - [bold]Glyph of Knowledge[/bold] allows a non-cultist brought upon it to be [color=#4cabb3]converted[/color] into a fellow cosmic cultist! Chaplains and individuals with a mindshield cannot be converted using this glyph.
   - [bold]Glyph of Projection[/bold] will allow the cultist using it to temporarily escape their body as a free-floating and imperceptible [color=#4cabb3]Astral Form[/color], allowing the cultist to spy on unsuspecting crewmembers.

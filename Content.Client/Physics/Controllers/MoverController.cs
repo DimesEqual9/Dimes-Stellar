@@ -16,8 +16,8 @@ public sealed class MoverController : SharedMoverController
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    // [Dependency] private readonly AlertsSystem _alerts = default!; // Stellar - no need
+    // [Dependency] private readonly IConfigurationManager _cfg = default!; // Stellar - no need
 
     public override void Initialize()
     {

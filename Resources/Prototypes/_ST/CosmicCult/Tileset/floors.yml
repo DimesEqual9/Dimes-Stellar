@@ -4,6 +4,7 @@
 
 - type: tile
   id: FloorCosmicGlyph
+  editorHidden: false
   name: tiles-cosmiccult-floor-glyph
   sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor/tile_glyph.png
   baseTurf: Plating
@@ -15,6 +16,7 @@
 
 - type: tile
   id: FloorCosmicSmooth
+  editorHidden: false
   name: tiles-cosmiccult-floor-smooth
   sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor/tile_smooth.png
   baseTurf: Plating
@@ -26,6 +28,7 @@
 
 - type: tile
   id: FloorCosmicHalf
+  editorHidden: false
   name: tiles-cosmiccult-floor-half
   sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor/tile_half.png
   baseTurf: Plating
@@ -37,6 +40,7 @@
 
 - type: tile
   id: FloorCosmicSplit
+  editorHidden: false
   name: tiles-cosmiccult-floor-split
   sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor/tile_split.png
   baseTurf: Plating
@@ -48,6 +52,7 @@
 
 - type: tile
   id: FloorCosmicNotched
+  editorHidden: false
   name: tiles-cosmiccult-floor-notched
   sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor/tile_notched.png
   baseTurf: Plating
@@ -59,6 +64,7 @@
 
 - type: tile
   id: FloorCosmicCorruption
+  editorHidden: false
   name: tiles-cosmiccult-floor-malign
   sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor/tile_malign.png
   variants: 4
@@ -75,6 +81,25 @@
   heatCapacity: 10000
 
 - type: tile
+  id: FloorCosmicRough
+  editorHidden: false
+  parent: FloorCosmicSmooth
+  name: tiles-cosmiccult-floor-malign
+  sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/floor.png
+  edgeSpritePriority: 6
+  edgeSprites:
+    SouthEast: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/single_edge_SE.png
+    NorthEast: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/single_edge_NE.png
+    NorthWest: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/single_edge_NW.png
+    SouthWest: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/single_edge_SW.png
+    South: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/double_edge_S.png
+    East: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/double_edge_E.png
+    North: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/double_edge_N.png
+    West: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-rough/double_edge_W.png
+  footstepSounds:
+    collection: FootstepCosmic
+
+- type: tile
   id: FloorCosmicVoid
   name: tiles-cosmiccult-floor-void
   sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor/floor_void.png
@@ -85,22 +110,53 @@
     collection: FootstepCosmic
   heatCapacity: 10000
 
+
+#### "FLOOR DECAY" ENTITIES
 - type: entity
-  id: FloorCosmicDecay
-  name: entropic decay
-  description: Just one look at this sends a chill running down your spine.
+  id: CosmicFloorDecay
+  suffix: DO NOT MAP
   placement:
     mode: SnapgridCenter
     snap:
     - Wall
   categories: [ ForkFiltered ]
   components:
-  - type: FloorOccluder
-  - type: SpeedModifierContacts
-    walkSpeedModifier: 0.5
-    sprintSpeedModifier: 0.5
+  - type: CosmicCollider # Cultists can walk through this.
   - type: Physics
     bodyType: Static
+  - type: Transform
+    anchored: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "0.45,0.45,-0.45,-0.45"
+        density: 999
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+  - type: Sprite
+    sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-decay.rsi
+  - type: Icon
+    sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-decay.rsi
+    state: full
+  - type: IconSmooth
+    key: floor
+    base: floor
+  - type: Tag
+    tags:
+    - HideContextMenu
+  - type: PlacementReplacement
+    key: decay
+
+- type: entity
+  parent: CosmicFloorDecay
+  id: CosmicFloorEntropicDecay
+  suffix: DO NOT MAP
+  categories: [ ForkFiltered ]
+  components:
   - type: Fixtures
     fixtures:
       fix1:
@@ -108,9 +164,9 @@
           !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer:
-          - SlipLayer
+        - SlipLayer
         mask:
-          - ItemMask
+        - ItemMask
         density: 1000
         hard: false
   - type: FootstepModifier
@@ -123,52 +179,14 @@
     intersectRatio: 0.1
     blacklist:
       tags:
-        - Catwalk
-  - type: Transform
-    anchored: true
-  - type: SyncSprite
-  - type: Clickable
+      - Catwalk
   - type: Sprite
-    sprite: /Textures/_ST/CosmicCult/Tileset/cosmicdecay.rsi
+    sprite: /Textures/_ST/CosmicCult/Tileset/cosmicfloor-decay.rsi
     drawdepth: BelowFloor
     layers:
-      - state: decay
-        shader: unshaded
-  - type: Icon
-    sprite: /Textures/_ST/CosmicCult/Tileset/cosmicdecay.rsi
-    state: full
-  - type: IconSmooth
+    - state: decay
+      shader: unshaded
+  - type: PlacementReplacement
     key: decay
-    base: decay
   - type: TileEmission
-    color: "#42a4ae"
-
-- type: entity
-  id: FloorCosmicDecayAlt
-  suffix: DO NOT MAP
-  name: "???"
-  categories: [ ForkFiltered ]
-  placement:
-    mode: SnapgridCenter
-    snap:
-    - Wall
-  components:
-  - type: FloorOccluder
-  - type: Physics
-    bodyType: Static
-    canCollide: False
-  - type: Transform
-    anchored: true
-  - type: SyncSprite
-  - type: Sprite
-    sprite: /Textures/_ST/CosmicCult/Tileset/cosmicdecayalt.rsi
-  - type: Icon
-    sprite: /Textures/_ST/CosmicCult/Tileset/cosmicdecayalt.rsi
-    state: full
-  - type: IconSmooth
-    key: floor
-    base: void
-  - type: Tag
-    tags:
-      - HideContextMenu
-
+    color: "#605191FF"

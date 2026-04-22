@@ -19,7 +19,6 @@
     goals: !type:AllSelector
       children:
       - id: ColossusSurviveGoal
-      - id: ColossusEffigyGoal
   - type: AntagSelection
     agentName: role-subtype-colossus
     definitions:

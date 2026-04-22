@@ -125,6 +125,11 @@ namespace Content.Shared.DrawDepth
         Overdoors = DrawDepthTag.Default + 12, // Stellar - Reorder
 
         /// <summary>
+        ///     Visible atmos gas.
+        /// </summary>
+        Gasses = DrawDepthTag.Default + 12, // Stellar - Reorder
+
+        /// <summary>
         ///     Explosions, fire, melee swings. Whatever.
         /// </summary>
         Effects = DrawDepthTag.Default + 13, // Stellar - Reorder

@@ -26,9 +26,12 @@ public sealed partial class StellarDefensiveOverchargeComponent : Component
     /// The weather that will be set per overcharge state
     /// </summary>
     [DataField]
-    public Dictionary<OverchargeState, ProtoId<WeatherPrototype>> OverchargeWeathers = new()
+    public Dictionary<OverchargeState, EntProtoId<WeatherStatusEffectComponent>> OverchargeWeathers = new()
     {
         { OverchargeState.Overcharged, "StellarWeatherStationShield" },
         { OverchargeState.Hypercharged, "StellarWeatherStationHyperShield" },
     };
+
+    [DataField]
+    public EntProtoId<WeatherStatusEffectComponent>? PreviousWeather;
 }

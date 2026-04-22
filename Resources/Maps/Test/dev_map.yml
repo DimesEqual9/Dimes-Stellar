@@ -1,11 +1,11 @@
 meta:
   format: 7
   category: Map
-  engineVersion: 271.1.0
+  engineVersion: 273.0.0
   forkId: ""
   forkVersion: ""
-  time: 02/20/2026 11:33:02
-  entityCount: 3142
+  time: 03/15/2026 20:01:24
+  entityCount: 3155
 maps:
 - 23
 grids:
@@ -1620,9 +1620,9 @@ entities:
     - type: BecomesStation
       id: Dev
     - type: ImplicitRoof
+    - type: ExplosionAirtightGrid
     - type: TileHistory
       chunkHistory: {}
-    - type: ExplosionAirtightGrid
   - uid: 23
     components:
     - type: MetaData
@@ -1724,9 +1724,9 @@ entities:
     - type: GasTileOverlay
     - type: RadiationGridResistance
     - type: ImplicitRoof
+    - type: ExplosionAirtightGrid
     - type: TileHistory
       chunkHistory: {}
-    - type: ExplosionAirtightGrid
   - uid: 2869
     components:
     - type: MetaData
@@ -1920,14 +1920,6 @@ entities:
     components:
     - type: Transform
       pos: 33.5,48.5
-      parent: 1
-    - type: Fixtures
-      fixtures: {}
-  - uid: 1220
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 51.5,37.5
       parent: 1
     - type: Fixtures
       fixtures: {}
@@ -6225,6 +6217,11 @@ entities:
     - type: Transform
       pos: 77.5,11.5
       parent: 1
+  - uid: 3158
+    components:
+    - type: Transform
+      pos: 52.5,37.5
+      parent: 1
 - proto: CableApcStack
   entities:
   - uid: 3139
@@ -9734,6 +9731,27 @@ entities:
     - type: Transform
       pos: 70.5,15.5
       parent: 1
+- proto: DebugAPCRecharging
+  entities:
+  - uid: 1220
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 51.5,37.5
+      parent: 1
+    - type: AccessReader
+      accessListsOriginal:
+      - - Engineering
+    - type: Fixtures
+      fixtures: {}
+  - uid: 2115
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 52.5,37.5
+      parent: 1
+    - type: Fixtures
+      fixtures: {}
 - proto: DebugGenerator
   entities:
   - uid: 2256
@@ -11483,77 +11501,23 @@ entities:
     - type: Transform
       pos: 28.5,41.5
       parent: 1
-- proto: KitchenReagentGrinder
+- proto: KitchenReagentGrinderBeakerLarge
   entities:
   - uid: 979
     components:
     - type: Transform
       pos: 31.5,41.5
       parent: 1
-    - type: ContainerContainer
-      containers:
-        beakerSlot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 980
-        inputContainer: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-        machine_board: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-        machine_parts: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-  - uid: 1044
+  - uid: 980
     components:
     - type: Transform
       pos: 30.5,44.5
       parent: 1
-    - type: ContainerContainer
-      containers:
-        beakerSlot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 1045
-        inputContainer: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-        machine_board: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-        machine_parts: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-  - uid: 1125
+  - uid: 1044
     components:
     - type: Transform
       pos: 52.5,42.5
       parent: 1
-    - type: ContainerContainer
-      containers:
-        beakerSlot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 1126
-        inputContainer: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-        machine_board: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-        machine_parts: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
 - proto: KitchenSpike
   entities:
   - uid: 963
@@ -11561,26 +11525,6 @@ entities:
     - type: Transform
       pos: 25.5,40.5
       parent: 1
-- proto: LargeBeaker
-  entities:
-  - uid: 980
-    components:
-    - type: Transform
-      parent: 979
-    - type: Physics
-      canCollide: False
-  - uid: 1045
-    components:
-    - type: Transform
-      parent: 1044
-    - type: Physics
-      canCollide: False
-  - uid: 1126
-    components:
-    - type: Transform
-      parent: 1125
-    - type: Physics
-      canCollide: False
 - proto: LockerAtmosphericsFilledHardsuit
   entities:
   - uid: 1716
@@ -12266,8 +12210,8 @@ entities:
       text: Other
     - type: PointLight
       energy: 2
-      radius: 2
       offset: 0,1
+      radius: 2
   - uid: 610
     components:
     - type: Transform
@@ -12278,9 +12222,9 @@ entities:
       text: Weapons
     - type: PointLight
       energy: 5
+      offset: 0,1
       color: '#FF0000FF'
       radius: 2
-      offset: 0,1
   - uid: 611
     components:
     - type: Transform
@@ -12291,9 +12235,9 @@ entities:
       text: Service
     - type: PointLight
       energy: 5
+      offset: 0,1
       color: '#87EB87FF'
       radius: 2
-      offset: 0,1
   - uid: 612
     components:
     - type: Transform
@@ -12304,9 +12248,9 @@ entities:
       text: Medical
     - type: PointLight
       energy: 5
+      offset: 0,1
       color: '#87D1EBFF'
       radius: 2
-      offset: 0,1
   - uid: 613
     components:
     - type: Transform
@@ -12317,9 +12261,9 @@ entities:
       text: Engi & Atmos
     - type: PointLight
       energy: 5
+      offset: 0,1
       color: '#FFA500FF'
       radius: 2
-      offset: 0,1
   - uid: 614
     components:
     - type: Transform
@@ -12330,9 +12274,9 @@ entities:
       text: R&D
     - type: PointLight
       energy: 5
+      offset: 0,1
       color: '#EB87EBFF'
       radius: 2
-      offset: 0,1
 - proto: MaterialBiomass
   entities:
   - uid: 1186
@@ -16748,9 +16692,9 @@ entities:
       parent: 1
     - type: PointLight
       energy: 5
+      offset: 0,2
       color: '#EB87EBFF'
       radius: 2
-      offset: 0,2
   - uid: 101
     components:
     - type: Transform
@@ -17116,9 +17060,9 @@ entities:
       parent: 1
     - type: PointLight
       energy: 5
+      offset: 0,2
       color: '#87EB87FF'
       radius: 2
-      offset: 0,2
   - uid: 891
     components:
     - type: Transform
@@ -17470,9 +17414,9 @@ entities:
       parent: 1
     - type: PointLight
       energy: 5
+      offset: 0,2
       color: '#87D1EBFF'
       radius: 2
-      offset: 0,2
   - uid: 1095
     components:
     - type: Transform
@@ -17931,9 +17875,9 @@ entities:
       parent: 1
     - type: PointLight
       energy: 5
+      offset: 0,2
       color: '#FFA500FF'
       radius: 2
-      offset: 0,2
   - uid: 1315
     components:
     - type: Transform
@@ -18533,9 +18477,9 @@ entities:
       parent: 1
     - type: PointLight
       energy: 5
+      offset: -2,0
       color: '#FF0000FF'
       radius: 2
-      offset: -2,0
   - uid: 1942
     components:
     - type: Transform
@@ -19405,8 +19349,8 @@ entities:
       parent: 1
     - type: PointLight
       energy: 2
-      radius: 2
       offset: 0,-2
+      radius: 2
   - uid: 2522
     components:
     - type: Transform

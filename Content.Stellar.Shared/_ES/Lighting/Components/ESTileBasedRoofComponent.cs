@@ -26,6 +26,7 @@ public sealed partial class ESTileBasedRoofComponent : Component
         "FloorRGlass",
         "FloorAsteroidSand", // natural non-station tiles
         "PlatingAsteroid",
+        "FloorCosmicVoid",
         "StellarFloorNothing",
     };
 }

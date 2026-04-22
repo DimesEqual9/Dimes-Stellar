@@ -3,6 +3,34 @@
 # SPDX-License-Identifier: LicenseRef-Wallening
 
 - type: entity
+  id: StellarBulletBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: PointLight
+    color: "#FFFFFF"
+    radius: 1.5
+    energy: 1
+    mask: /Textures/_ST/LightMasks/compact-line.png
+    enabled: true
+    autoRot: true
+    castShadows: false
+    netsync: false
+  - type: TimedDespawn
+    lifetime: 1.5
+  - type: Sprite
+    loop: false
+    drawdepth: BelowMobs
+    layers:
+    - map: ["enum.StellarHitscanLayers.Unshaded"]
+      shader: unshaded
+    - map: ["enum.StellarHitscanLayers.Shaded"]
+      shader: shaded
+  - type: Tag
+    tags:
+    - HideContextMenu
+  - type: AnimationPlayer
+
+- type: entity
   abstract: true
   id: StellarHitscanVisualsBase
   categories: [ HideSpawnMenu ]

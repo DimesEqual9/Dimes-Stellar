@@ -1,0 +1,78 @@
+# SPDX-FileCopyrightText: 2026 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-CosmicCult
+
+- type: entity
+  id: CosmicBreach
+  name: vacuous breach
+  description: A complete breach in realspace, allowing passage unto darkness...
+  placement:
+    mode: SnapgridCenter
+  categories: [ ForkFiltered ]
+  components:
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _ST/CosmicCult/Tileset/gateway.rsi
+    drawdepth: FloorObjects
+    snapCardinals: true
+    offset: 0, 0
+    layers:
+    - state: base
+    - state: vfx
+      shader: unshaded
+  - type: Clickable
+  - type: CosmicBreach
+  - type: CosmicExamine
+    cultistText: cosmic-examine-text-gateway
+    othersText: cosmic-examine-text-crew-gateway
+  - type: CosmicCorrupting
+    conversionTiles:
+      - FloorCosmicRough
+      - FloorCosmicCorruption
+    corruptionMaxTicks: 4
+    corruptionSpeed: 1
+    corruptionChance: 1
+    corruptionReduction: 0.249
+  - type: EmitSoundOnSpawn
+    sound:
+      path: /Audio/_ST/CosmicCult/gateway-spawn.ogg
+      params:
+        variation: 0.025
+  - type: PointLight
+    color: "#605191FF"
+    radius: 4
+    energy: 8
+    castShadows: false
+    netsync: false
+  - type: LightBehaviour
+    behaviours:
+    - !type:FadeBehaviour
+      interpolate: Linear
+      minDuration: 4
+      maxDuration: 4
+      startValue: 3
+      endValue: 8
+      property: Energy
+      enabled: true
+      isLooped: true
+      reverseWhenFinished: true
+
+# This entity relies on Stellar-exclusive features that exist outside the Cosmic Cult license (StellarShockwave). You must remove these when porting Cosmic Cult.
+- type: entity
+  categories: [ HideSpawnMenu ]
+  id: CosmicBreachSpawnEffect
+  components:
+  - type: StellarShockwave # Begin: Remove this when porting.
+    duration: 2
+    visualRange: 3
+    visualForce: 0.02
+    visualWidth: 0.1
+    visualAberration: 0.25 # End: Remove this when porting.
+  - type: TimedDespawn
+    lifetime: 2
+  - type: Transform
+    noRot: false
+    anchored: false
+  - type: Tag
+    tags:
+    - HideContextMenu

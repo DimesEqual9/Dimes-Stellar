@@ -15,7 +15,7 @@ namespace Content.Shared.Gravity;
 public abstract partial class SharedGravitySystem : EntitySystem
 {
     [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
+    // [Dependency] private readonly AlertsSystem _alerts = default!; // Stellar - we don't use this
 
     public static readonly ProtoId<AlertPrototype> WeightlessAlert = "Weightless";
 

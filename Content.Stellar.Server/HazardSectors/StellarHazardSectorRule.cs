@@ -34,7 +34,6 @@ public sealed class StellarHazardSectorRule : StellarGameRuleSystem<StellarHazar
 {
     [Dependency] private readonly IConfigurationManager _config = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly MapSystem _mapSystem = default!;
     [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
@@ -68,8 +67,8 @@ public sealed class StellarHazardSectorRule : StellarGameRuleSystem<StellarHazar
 
         comp.SectorStation = gridUid.Value;
         comp.SectorMap = EnsureHazardSectorMap(comp.Parallax, comp.MapLight);
-        if (comp.Weather is not null && _prototypeManager.TryIndex(comp.Weather, out var indexedWeather))
-            _weather.SetWeather(Transform(comp.SectorMap).MapID, indexedWeather, null);
+        if (comp.Weather is { } weather)
+            _weather.TryAddWeather(Transform(comp.SectorMap).MapID, weather, out _, null);
 
         _shuttleSystem.FTLToCoordinates(gridUid.Value, shuttleComp, Transform(comp.SectorMap).Coordinates, Angle.Zero, 0f, _stationWakeupTime);
 

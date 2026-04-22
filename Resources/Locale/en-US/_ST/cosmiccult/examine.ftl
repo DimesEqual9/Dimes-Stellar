@@ -1,30 +1,28 @@
 ## CREW EXAMINES
-cosmic-examine-text-contraband = [color=#4cabb3]This is highly illegal contraband with unknown properties![/color]
-cosmic-examine-text-structures = [color=#4cabb3]This object should not be on the station![/color]
-cosmic-examine-text-entities = [color=#4cabb3]This entity should not be on the station![/color]
-cosmic-examine-text-glyphs = [color=#4cabb3]The etched lines are deeply unnerving to gaze upon.[/color]
-cosmic-examine-text-abilityblank = [color=#4cabb3]Their catatonic eyes pulse with wicked light![/color]
+cosmic-examine-text-contraband = [color=#4cabb3]This is highly illegal contraband with unknown properties.[/color]
+cosmic-examine-text-structures = [color=#4cabb3]This object should not exist.[/color]
+cosmic-examine-text-entities = [color=#4cabb3]This entity should not exist.[/color]
+
+## CREW EXAMINES - SPECIFIC
+cosmic-examine-text-crew-monument = [color=#4cabb3]the end is the end is the end is the end is the end is the end is the end is the end is the end is the end is[/color]
+cosmic-examine-text-crew-rift = [color=#4cabb3][color=#a929ff][bold]Science[/bold][/color] should use an [color=#a929ff][bold]A.P.E[/bold][/color] to deal with this.[/color]
+cosmic-examine-text-crew-door = [color=#4cabb3]Once we [color=#cae8e8][bold]Open[/bold][/color] this, it can't be closed again.[/color][/color]
+cosmic-examine-text-crew-stigma = [color=#4cabb3]It looks fragile, I can probably [color=#cae8e8][bold]Destroy[/bold][/color] it![/color]
+cosmic-examine-text-crew-gateway = [color=#4cabb3]This could allow us to [color=#cae8e8][bold]Confront[/bold][/color] the cosmic cult![/color][/color]
+cosmic-examine-text-abilityshunt = [color=#4cabb3]Their catatonic eyes pulse with wicked light![/color]
 cosmic-examine-text-abilitylapse = [color=#4cabb3]They look like they're seeing something not meant to be seen. Not by anyone.[/color]
-cosmic-examine-text-malignecho = [color=#4cabb3]An echo in the membrane of realspace — it appears to be fading quickly. Something is amiss aboard the station![/color]
 cosmic-examine-text-imposition = [color=#4cabb3]A barrier of astral power wards them from injury![/color]
 cosmic-examine-text-chantry = [color=#4cabb3]You get the horrific feeling that there's somebody trapped inside![/color]
-cosmic-examine-text-effigy = [color=#4cabb3]It radiates unstable anomalous energy![/color]
-cosmic-examine-text-god = [color=#4cabb3]the end is the end is the end is the end is the end is the end is the end is the end is the end is the end is[/color]
 
-## CULTIST EXAMINES
+## CULTIST EXAMINES - SPECIFIC
 cosmic-examine-text-forthecult = [color=#4cabb3]This is our doing. As things should be.[/color]
 cosmic-examine-text-cultentity = [color=#4cabb3]A powerful ally.[/color]
-cosmic-examine-text-culteffigy = [color=#4cabb3]This may prove useful.[/color]
-
-## GLYPH EXAMINES
-cosmic-examine-glyph-cultcount = {$COUNT ->
-    [1] [color=#4cabb3]Requires only a single cultist to activate.[/color]
-    *[other] [color=#4cabb3]Requires {$COUNT} cultists to activate.[/color]
-}
-
-cosmic-examine-glyph-truth = [color=#4cabb3]Instills the pure, indelible truth. Able to convert absolutely anyone to join our ranks.[/color]
-cosmic-examine-glyph-knowledge = [color=#4cabb3]Instills the spark of indelible knowledge. Able to convert most to join our ranks.[/color]
-cosmic-examine-glyph-cessation = [color=#4cabb3]Transmutes a portable atmospherics scrubber into a Vacuous Spire for our use.[/color]
-cosmic-examine-glyph-projection = [color=#4cabb3]Allows us to ascend in a temporary astral form to spy on those around us.[/color]
-cosmic-examine-glyph-blades = [color=#4cabb3]Transmutes and extrudes sharp objects into more lethal weaponry.[/color]
-cosmic-examine-glyph-warding = [color=#4cabb3]Transmutes pressure-resistant clothing into entropic garb.[/color]
+cosmic-examine-text-monument = [color=#4cabb3]It can bestow great power upon us.[/color]
+cosmic-examine-text-rift = [color=#4cabb3]We can [color=#cae8e8][bold]Absorb[/bold][/color] these to gain power.[/color]
+cosmic-examine-text-stigma = [color=#4cabb3]We must [color=#cae8e8][bold]Harvest[/bold][/color] these to fuel [color=#cae8e8][bold]Malign Fonts[/bold][/color].[/color]
+cosmic-examine-text-stigma-harvested = [color=#4cabb3]It's been [color=#cae8e8][bold]Harvested[/bold][/color]. These remnants are of no use.[/color]
+cosmic-examine-text-stigma-crystal = [color=#4cabb3]We must bring this to a [color=#cae8e8][bold]Malign Font[/bold][/color].[/color]
+cosmic-examine-text-font = [color=#4cabb3]Requires a [color=#cae8e8][bold]Entropic Stigma[/bold][/color] to activate.[/color]
+cosmic-examine-text-font-activated = [color=#4cabb3]It's been activated! When [color=#cae8e8][bold]the end draws near[/bold][/color], it will aid us.[/color]
+cosmic-examine-text-gateway = [color=#4cabb3]Our work is nearing its completion.[/color]
+cosmic-examine-text-door = [color=#4cabb3]We'll have to wait for this to open.[/color]

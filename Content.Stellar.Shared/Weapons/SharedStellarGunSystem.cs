@@ -195,7 +195,6 @@ public abstract partial class SharedStellarGunSystem : EntitySystem
         {
             var lerp = Math.Clamp(args.Gun.ShotCounter / ent.Comp.RampingBulletsNeeded, 0, 1);
             args.Gun.FireRateModified = MathHelper.Lerp(args.Gun.FireRate, ent.Comp.RampingFireRate.Value, lerp);
-            Log.Info($"firerate lerp is at {lerp}");
         }
 
         if (ent.Comp.ShootingMethod == StellarGunMethod.Hitscan && Timing.IsFirstTimePredicted)
@@ -207,7 +206,7 @@ public abstract partial class SharedStellarGunSystem : EntitySystem
         if (ent.Comp.MuzzleFlash != null && Timing.IsFirstTimePredicted)
         {
             var ev = new StellarMuzzleFlashEvent(GetNetEntity(ent), ent.Comp.MuzzleFlash, mapDirection.ToAngle());
-            StellarMuzzleFlash(args.GunUid, ev, ent);
+            StellarMuzzleFlash(args.GunUid, ev, args.UserUid);
         }
         Dirty(args.GunUid, args.Gun);
     }
@@ -282,7 +281,7 @@ public abstract partial class SharedStellarGunSystem : EntitySystem
 
         var originPos = TransformSystem.ToMapCoordinates(Transform(args.Data.Gun).Coordinates).Position;
         var targetPos = TransformSystem.ToMapCoordinates(Transform(args.Data.HitEntity.Value).Coordinates).Position;
-        var distance = (targetPos - originPos).LengthSquared();
+        var distance = Math.Clamp((targetPos - originPos).Length(), ent.Comp.MinDistance, ent.Comp.MaxDistance);
         var dmg = (distance > ent.Comp.MinDistance) ? ent.Comp.Damage * Math.Pow(ent.Comp.FalloffModifier, distance / ent.Comp.MaxDistance) : ent.Comp.Damage;
 
         if(!_damage.TryChangeDamage(args.Data.HitEntity.Value, dmg, out var damageDealt, origin: args.Data.Shooter))
@@ -297,7 +296,7 @@ public abstract partial class SharedStellarGunSystem : EntitySystem
         if (Deleted(args.Target))
             return;
 
-        if (ent.Comp.HitColor != null && args.DamageDealt.GetTotal() != 0 && _netManager.IsClient) // We're lying to the client for the purposes of gamefeel polish.
+        if (ent.Comp.HitColor != null && args.DamageDealt.GetTotal() != 0 && _netManager.IsServer)
         {
             _color.RaiseEffect(ent.Comp.HitColor.Value,
                 new List<EntityUid> { args.Target },
@@ -343,13 +342,13 @@ public enum StellarHitscanLayers : byte
 [Serializable, NetSerializable]
 public sealed class StellarMuzzleFlashEvent : EntityEventArgs
 {
-    public NetEntity Uid;
+    public NetEntity Gun;
     public string Prototype;
     public Angle Angle;
 
-    public StellarMuzzleFlashEvent(NetEntity uid, string prototype, Angle angle)
+    public StellarMuzzleFlashEvent(NetEntity gun, string prototype, Angle angle)
     {
-        Uid = uid;
+        Gun = gun;
         Prototype = prototype;
         Angle = angle;
     }

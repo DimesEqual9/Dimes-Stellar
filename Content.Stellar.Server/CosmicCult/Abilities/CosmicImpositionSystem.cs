@@ -14,7 +14,6 @@ namespace Content.Stellar.Server.CosmicCult.Abilities;
 
 public sealed class CosmicImpositionSystem : EntitySystem
 {
-    [Dependency] private readonly CosmicCultSystem _cult = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
 
@@ -44,10 +43,9 @@ public sealed class CosmicImpositionSystem : EntitySystem
     {
         EnsureComp<CosmicImposingComponent>(uid, out var comp);
         comp.Expiry = _timing.CurTime + uid.Comp.CosmicImpositionDuration;
-        Spawn(uid.Comp.ImpositionVFX, Transform(uid).Coordinates);
+        Spawn(uid.Comp.ImpositionVfx, Transform(uid).Coordinates);
         args.Handled = true;
-        _audio.PlayPvs(uid.Comp.ImpositionSFX, uid, AudioParams.Default.WithVariation(0.05f));
-        _cult.MalignEcho(uid);
+        _audio.PlayPvs(uid.Comp.ImpositionSfx, uid, AudioParams.Default.WithVariation(0.05f));
     }
 
     private void OnImpositionDamaged(Entity<CosmicImposingComponent> uid, ref BeforeDamageChangedEvent args)

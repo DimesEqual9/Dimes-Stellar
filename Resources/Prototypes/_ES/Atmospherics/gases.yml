@@ -5,12 +5,14 @@
 - type: gas
   id: Smoke
   name: gases-smoke
-  specificHeat: 25
+  abbreviation: gas-smoke-abbreviation
+  molarHeatCapacity: 25
   heatCapacityRatio: 1.4
   molarMass: 40
-  gasOverlaySprite: /Textures/_ST/Effects/atmospherics.rsi # Stellar
-  gasOverlayState: water_vapor
-  color: 2e2e2e
+  gasOverlaySprite:
+    sprite: /Textures/_ST/Effects/atmospherics.rsi # Stellar
+    state: water_vapor
+  color: '#2e2e2e'
   reagent: Smoke
   pricePerMole: 1
   gasMolesVisible: 0.25

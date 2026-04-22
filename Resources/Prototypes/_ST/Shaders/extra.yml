@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2026 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: shader
+  id: StellarSpriteCutAnimated
+  kind: source
+  path: "/Textures/_ST/Shaders/halfcut_animated.swsl"

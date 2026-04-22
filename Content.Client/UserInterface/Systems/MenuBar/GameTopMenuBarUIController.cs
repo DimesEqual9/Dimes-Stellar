@@ -17,7 +17,7 @@ public sealed class GameTopMenuBarUIController : UIController
 {
     [Dependency] private readonly EscapeUIController _escape = default!;
     [Dependency] private readonly AdminUIController _admin = default!;
-    [Dependency] private readonly CharacterUIController _character = default!;
+    // [Dependency] private readonly CharacterUIController _character = default!; // Stellar - no need
     [Dependency] private readonly CraftingUIController _crafting = default!;
     [Dependency] private readonly AHelpUIController _ahelp = default!;
     [Dependency] private readonly ActionUIController _action = default!;

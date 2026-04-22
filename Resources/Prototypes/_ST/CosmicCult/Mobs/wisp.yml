@@ -6,16 +6,20 @@
   name: Wisp
   parent: [ BaseSimpleMob, FlyingMobBase ]
   id: MobCosmicWisp
+  categories: [ ForkFiltered ]
   components:
   - type: AntagImmune
   - type: Sprite
     drawdepth: Mobs
     sprite: _ST/CosmicCult/Mobs/wisp.rsi
     layers:
-    - map: ["enum.DamageStateVisualLayers.Base"]
-      state: wisp
+    - state: shadow-medium
+      offset: 0, -0.25
+    - state: wisp
+      offset: 0, 0.25
       shader: unshaded
   - type: Physics
+    bodyStatus: InAir
   - type: Fixtures
     fixtures:
       fix1:
@@ -33,15 +37,7 @@
     speechVerb: Ghost
     allowedEmotes: []
   - type: TypingIndicator
-    proto: alien
-  - type: DamageStateVisuals
-    states:
-      Alive:
-        Base: wisp
-      Critical:
-        Base: wisp
-      Dead:
-        Base: wisp
+    proto: CosmicTyping
   - type: Grammar
     attributes:
       proper: true
@@ -50,7 +46,7 @@
     tags:
     - CannotSuicide
   - type: PointLight
-    color: "#43286a"
+    color: "#42a4ae"
     radius: 2.25
     energy: 12
     castShadows: false
@@ -66,27 +62,24 @@
        enabled: true
        isLooped: true
        reverseWhenFinished: true
+  - type: MovementSpeedModifier
+    baseWeightlessFriction: 0.2
+    baseWeightlessModifier: 0.35
+  - type: MovementIgnoreGravity
+    weightless: true
 
 - type: entity
   categories: [ HideSpawnMenu ]
-  parent: BaseStructure
   id: CosmicChantryWisp
-  name: Wisp
+  name: Trapped Wisp
   components:
   - type: Sprite
     sprite: _ST/CosmicCult/Mobs/wisp.rsi
     layers:
-      - state: wisp
-        shader: unshaded
+      - state: shadow-medium
+        visible: false
   - type: Speech
   - type: Transform
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.1,-0.1,0.1,0.1"
-        mask:
-        - LargeMobMask
-        layer:
-        - WallLayer
+  - type: Physics
+    bodyType: Static
+    canCollide: False

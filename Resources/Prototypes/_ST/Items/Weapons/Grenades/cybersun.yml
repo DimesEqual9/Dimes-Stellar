@@ -23,7 +23,7 @@
 - type: entity
   parent: StellarGrenadeBase
   id: StellarGrenadeCybersunFlash
-  name: techline flashbang
+  name: sable flashbang
   description: Guaranteed to light up the mood.
   categories: [ ForkFiltered ]
   components:

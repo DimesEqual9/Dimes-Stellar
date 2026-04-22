@@ -15,7 +15,7 @@ namespace Content.Server.Body.Systems;
 
 public sealed class InternalsSystem : SharedInternalsSystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
+    // [Dependency] private readonly AlertsSystem _alerts = default!; // Stellar - no need
     [Dependency] private readonly GasTankSystem _gasTank = default!;
     [Dependency] private readonly RespiratorSystem _respirator = default!;
 

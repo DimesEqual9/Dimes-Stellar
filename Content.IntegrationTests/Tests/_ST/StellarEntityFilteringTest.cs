@@ -11,6 +11,8 @@ namespace Content.IntegrationTests.Tests._ST;
 [TestFixture]
 public sealed class StellarEntityFilteringTest
 {
+    public static readonly ProtoId<EntityCategoryPrototype> ForkFiltered = "ForkFiltered";
+
     [Test]
     public async Task CheckAllEntityHasForkFilteredCategory()
     {
@@ -23,8 +25,7 @@ public sealed class StellarEntityFilteringTest
         {
             Assert.Multiple(() =>
             {
-                if (!protoManager.TryIndex<EntityCategoryPrototype>("ForkFiltered", out var indexedFilter))
-                    return;
+                var indexedFilter = protoManager.Index(ForkFiltered);
 
                 foreach (var proto in protoManager.EnumeratePrototypes<EntityPrototype>())
                 {

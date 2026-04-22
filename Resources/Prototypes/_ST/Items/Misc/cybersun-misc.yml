@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: 2026 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: entity
+  parent: BaseImplantOnlyImplanter
+  id: StellarImplanterCybersunAosume
+  name: Aosume IXR secu-activator
+  description: Implants a DRM chip to allow the use of already-preinstalled cyberware in the user's body.
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Items/Tools/cybersun-implant-activator.rsi
+    layers:
+    - state: icon
+      map: [ "base" ]
+    - state: icon-unshaded
+      map: [ "unshaded" ]
+      visible: true
+      shader: unshaded
+  - type: GenericVisualizer
+    visuals:
+      enum.ImplanterVisuals.Full:
+        unshaded:
+          True: {visible: true}
+          False: {visible: false}
+      enum.ImplanterImplantOnlyVisuals.ImplantOnly:
+        base:
+          True: {state: icon-off}
+          False: {state: icon}
+  - type: Implanter
+    implant: StellarImplantCybersunAosume
+#    whitelist:
+#      components:
+#      - CosmicCult # This should be a component exclusive to CyberSun Double Agents.
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: StellarImplantCybersunAosume
+  name: Aosume IXR Implant
+  description: The Aosume IXR are a pair of menacing, arm-mounted blades. The DRM on this implant is so sophisticated that only a CyberSun secu-activator can enable its use.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+    permanent: true
+    implantAction: StellarActionCybersunRetractableAosume
+  - type: Tag
+    tags:
+    - SubdermalImplant
+    - HideContextMenu

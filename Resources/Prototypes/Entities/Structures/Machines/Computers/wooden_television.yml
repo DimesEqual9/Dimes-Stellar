@@ -7,11 +7,13 @@
   - type: Sprite
     noRot: true
     drawdepth: SmallObjects
-    layers:
-    - map: ["computerLayerBody"]
-      state: television
-    - map: ["computerLayerScreen"]
-      state: detective_television
+    # Begin Stellar Removals
+    # layers:
+    # - map: ["computerLayerBody"]
+    #   state: television
+    # - map: ["computerLayerScreen"]
+    #   state: detective_television
+    # End Stellar Removals
   - type: Computer
     board: ComputerTelevisionCircuitboard
   - type: PointLight

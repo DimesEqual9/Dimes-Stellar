@@ -147,6 +147,8 @@
 - type: entity
   parent:
   - StellarStructureBaseWall
+  - StellarStructureWallDamageable
+  - StellarStructureWallRCDDeconstructible
   id: StellarWallMalign
   name: malign wall
   description: An unsettling-looking section of hull...
@@ -161,8 +163,47 @@
     fullState: wall
     downState: downwall
   - type: StellarCutaway
-  - type: CosmicCultExamine
+  - type: CosmicExamine
     cultistText: cosmic-examine-text-forthecult
+
+- type: entity
+  parent:
+  - StellarStructureBaseWall
+  - StellarStructureWallDamageable
+  id: StellarWallMalignNoOcclusion
+  name: malign wall
+  description: An unsettling-looking section of hull...
+  suffix: No Occlusion
+  categories: [ ForkFiltered ]
+  components:
+  - type: Occluder
+    enabled: false
+  - type: Sprite
+    sprite: _ST/Tileset/Walls/malign.rsi
+  - type: Icon
+    sprite: _ST/Tileset/Walls/malign.rsi
+  - type: StellarWallSmooth
+    key: WallSolid
+    fullState: wall
+    downState: downwall
+  - type: StellarCutaway
+  - type: CosmicExamine
+    cultistText: cosmic-examine-text-forthecult
+
+- type: entity
+  parent:
+  - StellarStructureBaseWall
+  id: StellarWallIndestructible
+  suffix: Indestructible, MAPPING ONLY
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Tileset/Walls/indestructible.rsi
+  - type: Icon
+    sprite: _ST/Tileset/Walls/indestructible.rsi
+  - type: StellarWallSmooth
+    key: WallSolid
+    fullState: wall
 
 - type: entity
   parent:

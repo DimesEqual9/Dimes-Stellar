@@ -33,33 +33,33 @@ public abstract partial class SharedDeployableTurretSystem : EntitySystem
 
         SubscribeLocalEvent<DeployableTurretComponent, ActivateInWorldEvent>(OnActivate);
         SubscribeLocalEvent<DeployableTurretComponent, AttemptChangePanelEvent>(OnAttemptChangeWirePanelWire);
-        SubscribeLocalEvent<DeployableTurretComponent, GetVerbsEvent<Verb>>(OnGetVerb);
+        // SubscribeLocalEvent<DeployableTurretComponent, GetVerbsEvent<Verb>>(OnGetVerb); // Stellar - we don't want this
     }
 
-    private void OnGetVerb(Entity<DeployableTurretComponent> ent, ref GetVerbsEvent<Verb> args)
-    {
-        return; // Stellar - we don't need this verb
-        
-        if (!args.CanAccess || !args.CanInteract || !args.CanComplexInteract)
-            return;
+    // Begin Stellar Removals
+    // private void OnGetVerb(Entity<DeployableTurretComponent> ent, ref GetVerbsEvent<Verb> args)
+    // {        
+    //     if (!args.CanAccess || !args.CanInteract || !args.CanComplexInteract)
+    //         return;
 
-        if (!_accessReader.IsAllowed(args.User, ent))
-            return;
+    //     if (!_accessReader.IsAllowed(args.User, ent))
+    //         return;
 
-        var user = args.User;
+    //     var user = args.User;
 
-        var verb = new Verb
-        {
-            Priority = 1,
-            Text = ent.Comp.Enabled ? Loc.GetString("deployable-turret-component-deactivate") : Loc.GetString("deployable-turret-component-activate"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")),
-            Disabled = !HasAmmo(ent),
-            Impact = LogImpact.Low,
-            Act = () => { TryToggleState(ent, user); }
-        };
+    //     var verb = new Verb
+    //     {
+    //         Priority = 1,
+    //         Text = ent.Comp.Enabled ? Loc.GetString("deployable-turret-component-deactivate") : Loc.GetString("deployable-turret-component-activate"),
+    //         Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")),
+    //         Disabled = !HasAmmo(ent),
+    //         Impact = LogImpact.Low,
+    //         Act = () => { TryToggleState(ent, user); }
+    //     };
 
-        args.Verbs.Add(verb);
-    }
+    //     args.Verbs.Add(verb);
+    // }
+    // End Stellar Removals
 
     private void OnActivate(Entity<DeployableTurretComponent> ent, ref ActivateInWorldEvent args)
     {

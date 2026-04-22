@@ -11,7 +11,7 @@
     transferName: false
     transferDamage: true
     duration: 12
-    polymorphSound: /Audio/_ST/CosmicCult/ability_lapse.ogg
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
 
 - type: polymorph
   id: CosmicLapseMobArachnid
@@ -22,7 +22,7 @@
     transferName: false
     transferDamage: true
     duration: 12
-    polymorphSound: /Audio/_ST/CosmicCult/ability_lapse.ogg
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
 
 - type: polymorph
   id: CosmicLapseMobDiona
@@ -33,7 +33,7 @@
     transferName: false
     transferDamage: true
     duration: 12
-    polymorphSound: /Audio/_ST/CosmicCult/ability_lapse.ogg
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
 
 - type: polymorph
   id: CosmicLapseMobMoth
@@ -44,8 +44,7 @@
     transferName: false
     transferDamage: true
     duration: 12
-    polymorphSound: /Audio/_ST/CosmicCult/ability_lapse.ogg
-
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
 
 - type: polymorph
   id: CosmicLapseMobVox
@@ -56,29 +55,40 @@
     transferName: false
     transferDamage: true
     duration: 12
-    polymorphSound: /Audio/_ST/CosmicCult/ability_lapse.ogg
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
 
 - type: polymorph
-  id: CosmicLapseMobSnail
+  id: CosmicLapseMobVulpkanin
   configuration:
-    entity: CosmicPolymorphEntSnail
+    entity: CosmicPolymorphEntVulp
     forced: true
     inventory: None
     transferName: false
     transferDamage: true
     duration: 12
-    polymorphSound: /Audio/_ST/CosmicCult/ability_lapse.ogg
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
 
 - type: polymorph
-  id: CosmicLapseMobDecapoid
+  id: CosmicLapseMobReptilian
   configuration:
-    entity: CosmicPolymorphEntDecapoid
+    entity: CosmicPolymorphEntLizard
     forced: true
     inventory: None
     transferName: false
     transferDamage: true
     duration: 12
-    polymorphSound: /Audio/_ST/CosmicCult/ability_lapse.ogg
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
+
+- type: polymorph
+  id: CosmicLapseMobSlimePerson
+  configuration:
+    entity: CosmicPolymorphEntSlime
+    forced: true
+    inventory: None
+    transferName: false
+    transferDamage: true
+    duration: 12
+    polymorphSound: /Audio/_ST/CosmicCult/Abilities/ability-lapse.ogg
 
 - type: entity
   categories: [ HideSpawnMenu ]
@@ -89,9 +99,9 @@
   description: Trapped in a lapse between here and there.
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_lapsepolymorph.rsi
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
     layers:
-      - state: humanoid
+      - state: human
         shader: unshaded
     drawdepth: SmallMobs
     noRot: true
@@ -101,7 +111,7 @@
     color: "#42a4ae"
     castShadows: false
   - type: CosmicLapse
-  - type: CosmicCultExamine
+  - type: CosmicExamine
     cultistText: cosmic-examine-text-abilitylapse
   - type: LightBehaviour
     behaviours:
@@ -141,7 +151,7 @@
   id: CosmicPolymorphEntArachnid
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_lapsepolymorph.rsi
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
     layers:
       - state: spider
         shader: unshaded
@@ -152,7 +162,7 @@
   id: CosmicPolymorphEntDiona
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_lapsepolymorph.rsi
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
     layers:
       - state: diona
         shader: unshaded
@@ -163,7 +173,7 @@
   id: CosmicPolymorphEntMoth
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_lapsepolymorph.rsi
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
     layers:
       - state: moth
         shader: unshaded
@@ -174,7 +184,7 @@
   id: CosmicPolymorphEntVox
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_lapsepolymorph.rsi
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
     layers:
       - state: vox
         shader: unshaded
@@ -182,21 +192,32 @@
 - type: entity
   categories: [ HideSpawnMenu ]
   parent: CosmicPolymorphEnt
-  id: CosmicPolymorphEntSnail
+  id: CosmicPolymorphEntVulp
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_lapsepolymorph.rsi
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
     layers:
-      - state: snail
+      - state: vulp
         shader: unshaded
 
 - type: entity
   categories: [ HideSpawnMenu ]
   parent: CosmicPolymorphEnt
-  id: CosmicPolymorphEntDecapoid
+  id: CosmicPolymorphEntLizard
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_lapsepolymorph.rsi
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
     layers:
-      - state: crab
+      - state: lizard
         shader: unshaded
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: CosmicPolymorphEnt
+  id: CosmicPolymorphEntSlime
+  components:
+  - type: Sprite
+    sprite: _ST/CosmicCult/Effects/ability-lapse-polymorph.rsi
+    layers:
+    - state: slime
+      shader: unshaded

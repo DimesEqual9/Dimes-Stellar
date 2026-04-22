@@ -22,7 +22,6 @@ namespace Content.Stellar.Server.Overcharge;
 
 public sealed class StellarOverchargeDefensiveSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly DestructibleSystem _destructible = default!;
@@ -46,9 +45,18 @@ public sealed class StellarOverchargeDefensiveSystem : EntitySystem
         if (_station.GetLargestGrid(ent.Owner) is not { } grid)
             return;
 
-        _weather.SetWeather(Transform(grid).MapID,
-            ent.Comp.OverchargeWeathers.TryGetValue(args.State, out var weather) ? _proto.Index(weather) : null,
-            null);
+        var mapID = Transform(grid).MapID;
+        if (ent.Comp.PreviousWeather is { } previous)
+        {
+            _weather.TryRemoveWeather(mapID, previous);
+            ent.Comp.PreviousWeather = null;
+        }
+
+        if (!ent.Comp.OverchargeWeathers.TryGetValue(args.State, out var weather))
+            return;
+
+        _weather.TryAddWeather(mapID, weather, out _, null);
+        ent.Comp.PreviousWeather = weather;
     }
 
     private void OnMeteorCollide(Entity<StellarDefendableMeteorComponent> ent, ref StartCollideEvent args)
@@ -80,12 +88,12 @@ public sealed class StellarOverchargeDefensiveSystem : EntitySystem
         else
             threshold = FixedPoint2.MaxValue;
 
-        var otherEntDamage = CompOrNull<DamageableComponent>(args.OtherEntity)?.TotalDamage ?? FixedPoint2.Zero;
+        var otherEntDamage = _damageable.GetTotalDamage(args.OtherEntity);
         // account for the damage that the other entity has already taken: don't overkill
         threshold -= otherEntDamage;
 
         // The max amount of damage our meteor can take before breaking.
-        var maxMeteorDamage = _destructible.DestroyedAt(ent) - CompOrNull<DamageableComponent>(ent)?.TotalDamage ?? FixedPoint2.Zero;
+        var maxMeteorDamage = _destructible.DestroyedAt(ent.Owner) - _damageable.GetTotalDamage(ent.Owner);
 
         // Cap damage so we don't overkill the meteor
         var trueDamage = FixedPoint2.Min(maxMeteorDamage, threshold);

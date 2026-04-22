@@ -2,90 +2,122 @@
 #
 # SPDX-License-Identifier: LicenseRef-CosmicCult
 
-##################### SHUTTLE CORE CONTROL
+##################### MONUMENT
+- type: entity
+  id: CosmicMonument
+  parent: BaseStructure
+  name: The Monument
+  description: Built of a thousand little nothings, its surface reflects a starless emptiness...
+  categories: [ ForkFiltered ]
+  components:
+  - type: InteractionOutline
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Physics
+    bodyType: Static
+  - type: CosmicMonument
+  - type: CosmicExamine
+    cultistText: cosmic-examine-text-monument
+    othersText: cosmic-examine-text-crew-monument
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.25,-0.01,1.25,0.7"
+        density: 9999
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
+  - type: Sprite
+    sprite: _ST/CosmicCult/Tileset/monument.rsi
+    offset: 0, 1.155
+    drawdepth: Mobs
+    layers:
+    - state: base
+    - state: vfx-2
+      sprite: _ST/CosmicCult/Effects/monument-vfx.rsi
+      offset: -0.03, 0.5
+      shader: unshaded
+      visible: false
+      map: ["effects"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.MonumentVisuals.Status:
+        effects:
+          Idle: { visible: false }
+          Finale: { visible: true }
+  - type: AmbientSound
+    enabled: true
+    volume: -8
+    range: 9
+    sound:
+      path: /Audio/_ST/CosmicCult/monument-ambient.ogg
+  - type: PointLight
+    radius: 6
+    energy: 4
+    falloff: 2
+    enabled: true
+    castShadows: true
+    color: "#42a4ae"
+  - type: LightBehaviour
+    behaviours:
+    - !type:FadeBehaviour
+      interpolate: Linear
+      minDuration: 4
+      maxDuration: 8
+      startValue: 2
+      endValue: 4
+      property: Energy
+      enabled: true
+      isLooped: true
+      reverseWhenFinished: true
+  - type: GuideHelp
+    guides:
+    - CosmicCult
+  - type: WarpPoint
+    location: The Monument
+
+##################### PLINTH
 - type: entity
   parent: BaseStructure
-  id: CosmicShuttleCore
-  name: malign instrument
-  description: Its surface glows with a myriad of inscrutable glyphs that commmunicate a single word into your mind; "Flight".
-  components:
-  - type: Sprite
-    sprite: _ST/CosmicCult/Tileset/cosmiccomputer.rsi
-    layers:
-      - state: computer
-      - state: computer-unshaded
-        shader: unshaded
-  - type: CosmicCultExamine
-    cultistText: cosmic-examine-text-forthecult
-  - type: Thruster
-    thrusterType: Angular # These are overpowered thruster-shuttle-console-hybrids that require no power grid. As such, they cannot be anchored or meaningfully taken outside of their intended use.
-    requireSpace: false
-    thrust: 4000
-    machinePartThrust: Manipulator
-  - type: ShuttleConsole
-  - type: ActivatableUI
-    key: enum.ShuttleConsoleUiKey.Key
-  - type: UserInterface
-    interfaces:
-        enum.ShuttleConsoleUiKey.Key:
-          type: ShuttleConsoleBoundUserInterface
-  - type: EmitSoundOnUIOpen
-    sound:
-      collection: Keyboard
-      params:
-        volume: -1
-        variation: 0.05
-        pitch: 1.05
-  - type: RadarConsole
-  - type: WorldLoader
-    radius: 256
-  - type: PointLight
-    radius: 1.5
-    energy: 1.6
-    enabled: true # Test fail if false
-    mask: /Textures/Effects/LightMasks/cone.png
-    autoRot: true
-    offset: "0, 0.4"
-    castShadows: false
-    color: "#42a4ae"
-  - type: Rotatable
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 600
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: Metallic
-
-
-##################### CHAIR
-- type: entity
-  name: malign settee
-  id: CosmicChair
-  parent: SeatBase
+  id: CosmicPlinth
+  name: malign plinth
+  description: An eerie structure.
+  categories: [ ForkFiltered ]
   placement:
     mode: SnapgridCenter
   components:
-  - type: CosmicCultExamine
-    cultistText: cosmic-examine-text-forthecult
+  - type: Transform
+    noRot: true
+  - type: PlaceableSurface
+  - type: Climbable
   - type: Sprite
-    sprite: _ST/CosmicCult/Tileset/cosmicchair.rsi
-    state: chair
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 200
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: Metallic
+    noRot: true
+    sprite: _ST/CosmicCult/Tileset/plinth.rsi
+    layers:
+    - state: icon
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "0.30,0.40,-0.30,-0.1"
+        density: 190
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+  - type: PointLight
+    color: "#42a4ae"
+    radius: 2.5
+    energy: 6
+    enabled: false
+    castShadows: false
+    netsync: false
 
 ##################### PILLAR
 - type: entity
@@ -95,6 +127,8 @@
   description: A mysterious-yet-inert sturcture. Unsettling.
   categories: [ ForkFiltered ]
   components:
+  - type: Transform
+    noRot: true
   - type: Sprite
     sprite: _ST/CosmicCult/Tileset/cosmicpillar.rsi
     offset: 0, 0.5
@@ -102,7 +136,7 @@
       - state: icon
     drawdepth: Mobs
     noRot: true
-  - type: CosmicCultExamine
+  - type: CosmicExamine
     cultistText: cosmic-examine-text-forthecult
   - type: SpriteFade
   - type: Fixtures
@@ -119,70 +153,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 200
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: Metallic
-
-##################### THRUSTER
-- type: entity
-  parent: BaseStructure
-  id: CosmicThruster
-  name: malign engine
-  components:
-  - type: CosmicCultExamine
-    cultistText: cosmic-examine-text-forthecult
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.45,-0.45,0.45,0.45"
-        density: 60
-        mask:
-        - MachineMask
-        layer:
-        - MachineLayer
-  - type: AmbientSound
-    enabled: false
-    range: 4
-    volume: -4
-    sound:
-      path: /Audio/Effects/shuttle_thruster.ogg
-  - type: Transform
-    anchored: true
-  - type: Physics
-    bodyType: Static
-  - type: Rotatable
-    rotateWhileAnchored: true
-  - type: Thruster
-    damage:
-      types:
-        Cold: 40
-  - type: InteractionOutline
-  - type: Appearance
-  - type: Sprite
-    sprite: _ST/CosmicCult/Tileset/cosmicthruster.rsi
-    layers:
-    - state: base
-      map: ["enum.ThrusterVisualLayers.Base"]
-    - state: thrust
-      map: ["enum.ThrusterVisualLayers.ThrustOn"]
-      shader: unshaded
-      visible: false
-    - state: thrust_burn_unshaded
-      map: ["enum.ThrusterVisualLayers.ThrustingUnshaded"]
-      shader: unshaded
-      visible: false
-      offset: 0, 0.564
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 600
+        damage: 150
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
@@ -200,13 +171,7 @@
     mode: SnapgridCenter
   categories: [ ForkFiltered ]
   components:
-  - type: MeleeSound
-    soundGroups:
-      Brute:
-        collection: GlassSmash
   - type: Transform
-  - type: CosmicCultExamine
-    cultistText: cosmic-examine-text-forthecult
   - type: Clickable
   - type: InteractionOutline
   - type: Sprite
@@ -222,182 +187,39 @@
     radius: 8
     softness: 1
     offset: "0, -0.5"
-  - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: Metallic
-  - type: RCDDeconstructable
-    deconstructable: false
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 200
-      behaviors: #excess damage, don't spawn entities.
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-      - !type:PlaySoundBehavior
-        sound:
-          collection: GlassBreak
 
-
-
+##################### DECOR
 - type: entity
-  id: CosmicMalignRift
-  name: malign rift
-  description: A malign light pours forth from within.
+  parent: BaseStructure
+  id: CosmicDecor1
+  categories: [ ForkFiltered ]
   placement:
     mode: SnapgridCenter
   components:
-  - type: InteractionOutline
-  - type: Sprite
-    sprite: _ST/CosmicCult/Tileset/malignrift.rsi
-    drawdepth: Mobs
-    snapCardinals: true
-    offset: 0,0.27
-    layers:
-      - state: rift-unshaded
-        shader: unshaded
-  - type: Clickable
-  - type: PointLight
-    radius: 1.5
-    energy: 1.6
-    castShadows: false
-    color: "#42a4ae"
-  - type: CosmicCultExamine
-    cultistText: cosmic-examine-text-forthecult
-  - type: CosmicMalignRift
-  - type: CosmicCorrupting
-    corruptionMaxTicks: 6
-    corruptionSpeed: 8
-    corruptionChance: 1
-    corruptionReduction: 0.16
-
-##################### SPIRE
-- type: entity
-  id: CosmicVacuousSpire
-  parent: BaseStructure
-  name: vacuous spire
-  description: Also known as the "chuuni fork".
-  components:
-  - type: Pullable
-  - type: Anchorable
-  - type: Physics
-    bodyType: Dynamic
   - type: Transform
-    anchored: false
-  - type: AtmosDevice
-    joinSystem: true
-  - type: CosmicSpire
-  - type: CosmicCultExamine
-    cultistText: cosmic-examine-text-forthecult
-  - type: SpriteFade
-  - type: InteractionOutline
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _ST/CosmicCult/Tileset/decor-48x.rsi
+    state: base-1
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.25,-0.375,0.25,0.4"
-        density: 200
+          bounds: "0.30,0.40,-0.30,-0.1"
+        density: 190
         mask:
         - LargeMobMask
         layer:
         - WallLayer
-  - type: Sprite
-    sprite: _ST/CosmicCult/Tileset/cosmicspire.rsi
-    offset: 0, 0.5
-    layers:
-      - state: base-disabled
-        map: ["base"]
-      - state: overlay
-        map: ["vfx"]
-        shader: unshaded
-        visible: false
-    drawdepth: Mobs
-    noRot: true
-  - type: GenericVisualizer
-    visuals:
-      enum.SpireVisuals.Status:
-        base:
-          On: {state: base-enabled}
-          Off: {state: base-disabled}
-        vfx:
-          On: {visible: True}
-          Off: {visible: False}
-  - type: Appearance
-  - type: AmbientSound
-    enabled: false
-    volume: -5
-    range: 15
-    sound:
-      path: /Audio/_ST/CosmicCult/spire_draining.ogg
-  - type: Damageable
-    damageContainer: StructuralInorganic
-    damageModifierSet: Metallic
-  - type: RCDDeconstructable
-    deconstructable: false
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 300
-      behaviors: #excess damage, don't spawn entities.
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-      - !type:PlaySoundBehavior
-        sound:
-          collection: GlassBreak
-  - type: PointLight
-    radius: 2
-    energy: 1.6
-    enabled: false
-    castShadows: false
-    color: "#42a4ae"
 
 - type: entity
-  id: AltarCosmic
-  parent: AltarNanotrasen
-  name: cosmic altar
-  description: Altar of.. Something.
+  parent: CosmicDecor1
+  id: CosmicDecor2
+  categories: [ ForkFiltered ]
+  placement:
+    mode: SnapgridCenter
   components:
   - type: Sprite
-    sprite: _ST/CosmicCult/Tileset/altar.rsi
-    layers:
-    - state: cosmic
-    - state: cosmic_light
-      shader: unshaded
-  - type: Icon
-    sprite: _ST/CosmicCult/Tileset/altar.rsi
-    state: cosmic
-  - type: PointLight
-    radius: 1.5
-    energy: 2.5
-    color: "#42a4ae"
-
-- type: entity
-  id: CosmicTable
-  parent: CounterBase
-  name: malign table
-  description: Unfathomably, cosmically.. Square.
-  components:
-  - type: Sprite
-    sprite: _ST/CosmicCult/Tileset/cosmictable.rsi
-  - type: Icon
-    sprite: _ST/CosmicCult/Tileset/cosmictable.rsi
-    state: full
-  - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: Metallic
-  - type: CosmicCultExamine
-    cultistText: cosmic-examine-text-forthecult
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 100
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: IconSmooth
-    key: cosmictable
-    base: state_
+    state: base-2

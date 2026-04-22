@@ -1,12 +1,29 @@
-# SPDX-FileCopyrightText: 2025 AftrLite
+# SPDX-FileCopyrightText: 2026 AftrLite
 #
 # SPDX-License-Identifier: LicenseRef-CosmicCult
+
+- type: entity
+  id: CosmicCultStigmaCrystal
+  parent: BaseItem
+  name: harvested entropic stigma
+  description: An otherworldly substance, somewhere between resin and crystal.
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/CosmicCult/Objects/stigma-crystal.rsi
+    state: icon
+  - type: CosmicEquipment
+  - type: CosmicStigmaItem
+  - type: CosmicExamine
+    cultistText: cosmic-examine-text-stigma-crystal
+    othersText: cosmic-examine-text-structures
 
 - type: entity
   id: CosmicCultLawBoard
   parent: BaseElectronics
   name: malign law board
   description: An eerie circuit board, suited for slotting into an AI law upload console. Its circuitry is interwoven with dendritic strands that twitch of their own accord.
+  categories: [ ForkFiltered ]
   components:
   - type: Sprite
     sprite: _ST/CosmicCult/Objects/lawboard.rsi
@@ -21,6 +38,7 @@
   parent: PositronicBrain
   name: astral mindsink
   description: A strange artifact. Though comprised of malign materials, it instills no feelings of discomfort.
+  categories: [ ForkFiltered ]
   components:
   - type: Sprite
     sprite: _ST/CosmicCult/Objects/mindsink.rsi

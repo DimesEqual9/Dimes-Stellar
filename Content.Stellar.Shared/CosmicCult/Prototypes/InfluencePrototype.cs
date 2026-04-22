@@ -24,7 +24,7 @@ public sealed partial class InfluencePrototype : IPrototype
     public LocId InfluenceType;
 
     [DataField(required: true)]
-    public int Cost;
+    public float Weight;
 
     [DataField(required: true)]
     public LocId Description;

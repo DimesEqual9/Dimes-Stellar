@@ -11,7 +11,7 @@
     useDelay: 50
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: siphon
   - type: TargetAction
   - type: EntityTargetAction
@@ -21,10 +21,11 @@
     blacklist:
       components:
       - CosmicCult
+      - ActiveNPC
     event: !type:EventCosmicSiphon {}
 
 - type: entity
-  id: ActionCosmicBlank
+  id: ActionCosmicShunt
   name: Shunt Subjectivity
   description: Shunt your target's mind out of their body and unto the cosmic dark, temporarily rendering their body mindless.
   components:
@@ -32,8 +33,8 @@
     useDelay: 120
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: blank
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
+      state: shunt
   - type: TargetAction
   - type: EntityTargetAction
     canTargetSelf: true
@@ -43,60 +44,9 @@
     blacklist:
       components:
       - CosmicCult
-    event: !type:EventCosmicBlank {}
-
-- type: entity
-  id: ActionCosmicPlaceMonument
-  name: Beckon The Monument
-  description: Call forth The Monument into realspace. Keep it hidden and safe from non-cultists!
-  components:
-  - type: ConfirmableAction
-    popup: cosmicability-monument-spawn-confirm
-    primeTime: 10 #increased to give you more time to figure out where you want to put it
-  - type: Action
-    useDelay: 999
-    itemIconStyle: NoItem
-    icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: monument
-  - type: InstantAction
-    event: !type:EventCosmicPlaceMonument {}
-  - type: MonumentPlacementPreview
-    tier: 1
-
-- type: entity
-  id: ActionCosmicMoveMonument
-  name: Relocate The Monument
-  description: Your work is imperative, and the end is inevitable. Ensure that it is completed under your watch.
-  components:
-  - type: ConfirmableAction
-    popup: cosmicability-monument-move-confirm
-    primeTime: 10 #increased to give you more time to figure out where you want to put it
-  - type: Action
-    useDelay: 999
-    itemIconStyle: NoItem
-    icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: monument-relocate
-  - type: InstantAction
-    event: !type:EventCosmicMoveMonument
-  - type: MonumentPlacementPreview
-    tier: 2
-
-- type: entity
-  id: ActionCosmicReturn
-  name: Return
-  description: Dissipate your astral projection and return to your body.
-  components:
-  - type: Action
-    checkCanInteract: false
-    itemIconStyle: NoItem
-    useDelay: 0
-    icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: return
-  - type: InstantAction
-    event: !type:EventCosmicReturn {}
+      - CosmicBlank
+      - ActiveNPC
+    event: !type:EventCosmicShunt {}
 
 - type: entity
   id: ActionCosmicLapse
@@ -107,7 +57,7 @@
     useDelay: 45
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: lapse
   - type: TargetAction
   - type: EntityTargetAction
@@ -115,6 +65,9 @@
     whitelist:
       components:
       - HumanoidProfile
+    blacklist:
+      components:
+      - CosmicBlank
     event: !type:EventCosmicLapse {}
 
 - type: entity
@@ -125,13 +78,13 @@
   - type: ConfirmableAction
     popup: cosmicability-glare-confirm
     confirmDelay: 0.1
-    primeTime: 5 #increased to give you more time to figure out where you want to put it
+    primeTime: 3
   - type: Action
     useDelay: 60
     checkCanInteract: false
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: glare
   - type: InstantAction
     event: !type:EventCosmicGlare {}
@@ -142,10 +95,10 @@
   description: Use a concentrated blast of power to force a secure doorway open.
   components:
   - type: Action
-    useDelay: 25
+    useDelay: 20
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: ingress
   - type: TargetAction
   - type: EntityTargetAction
@@ -160,11 +113,11 @@
   description: You negate any incoming damage for a short time.
   components:
   - type: Action
-    useDelay: 160
+    useDelay: 120
     checkCanInteract: false
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: entropic
   - type: InstantAction
     event: !type:EventCosmicImposition {}
@@ -175,11 +128,11 @@
   description: Hurl a large and disruptive blast of astral energy.
   components:
   - type: Action
-    useDelay: 45
+    useDelay: 30
     raiseOnUser: true
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: nova
   - type: TargetAction
     range: 60
@@ -197,7 +150,7 @@
     useDelay: 25
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: corruption
   - type: TargetAction
   - type: EntityTargetAction
@@ -205,7 +158,51 @@
       components:
       - BorgChassis
       - SiliconLawUpdater
+    blacklist:
+      components:
+      - CosmicCult
+      - ActiveNPC
     event: !type:EventCosmicFragmentation {}
+
+- type: entity
+  id: ActionCosmicShift
+  name: Astral Shift
+  description: Slip out of phase with realspace in order to temporarily access the cosmic dark. You'll automatically return to the station after a period of time.
+  components:
+  - type: ConfirmableAction
+    popup: cosmicability-shift-confirm
+    confirmDelay: 0.075
+    primeTime: 2
+  - type: Action
+    checkCanInteract: false
+    itemIconStyle: NoItem
+    useDelay: 45
+    icon:
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
+      state: shift
+  - type: InstantAction
+    event: !type:EventCosmicShift {}
+
+- type: entity
+  id: ActionCosmicReturn
+  name: Return
+  description: Exit the dark and return to the station early.
+  components:
+  - type: Action
+    checkCanInteract: false
+    itemIconStyle: NoItem
+    useDelay: 0
+    icon:
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
+      state: return
+  - type: InstantAction
+    event: !type:EventCosmicReturn {}
+
+
+
+
+
+
 
 ## COLOSSUS ACTIONS
 
@@ -218,7 +215,7 @@
     useDelay: 18
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: sunder
   - type: TargetAction
     range: 7
@@ -234,7 +231,7 @@
     useDelay: 8
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: ingress
   - type: TargetAction
     range: 2
@@ -256,21 +253,7 @@
     checkCanInteract: false
     itemIconStyle: NoItem
     icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
+      sprite: _ST/CosmicCult/Icons/cosmiccult-abilities.rsi
       state: slumber
   - type: InstantAction
     event: !type:EventCosmicColossusHibernate {}
-
-- type: entity
-  id: ActionCosmicColossusEffigy
-  name: Beckon an Effigy
-  description: Draw out an Effigy of Entropy into realspace.
-  components:
-  - type: Action
-    useDelay: 999
-    itemIconStyle: NoItem
-    icon:
-      sprite: _ST/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: nova
-  - type: InstantAction
-    event: !type:EventCosmicColossusEffigy {}

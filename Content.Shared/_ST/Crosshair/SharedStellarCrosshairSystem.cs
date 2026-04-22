@@ -9,7 +9,7 @@ namespace Content.Shared._ST.Crosshair;
 
 public sealed class SharedStellarCrosshairSystem : EntitySystem
 {
-    public SpriteSpecifier.Rsi? GetCrosshair(Entity<StellarGunCrosshairComponent?> crosshair)
+    public SpriteSpecifier.Rsi? GetCrosshair(Entity<StellarCrosshairComponent?> crosshair)
     {
         // Require the held item to be wielded (this keeps existing behavior).
         if (!Resolve(crosshair, ref crosshair.Comp, false))
@@ -17,7 +17,7 @@ public sealed class SharedStellarCrosshairSystem : EntitySystem
 
         if (TryComp(crosshair.Owner, out WieldableComponent? wieldable))
         {
-            if (wieldable.Wielded)
+            if (!crosshair.Comp.MustWield || wieldable.Wielded)
                 return crosshair.Comp?.Rsi;
             return null;
         }

@@ -13,7 +13,7 @@ SPDX-License-Identifier = "CC-BY-SA-3.0"
 SPDX-FileAttributionText = "https://linktr.ee/nahupyrope"
 
 [[annotations]]
-path = ["projectile_razor_hit.ogg","projectile_razor_reload.ogg","projectile_razor.ogg","insert_entropy.ogg","tier2.ogg","tier3.ogg","tile_detonate.ogg","spire_draining.ogg","monument_spawn.ogg","monument_relocation.ogg","god_summon.ogg","god_spawn.ogg","god_ambient.ogg","glyph_trigger.ogg","effigy_supercritical.ogg","effigy_pulse.ogg","effigy_ambience.ogg","door_open.ogg","door_close.ogg","chantry_alarm.ogg","colossus_death.ogg","colossus_spawn.ogg","cosmicweapon_swing.ogg","cosmicsword_hit.ogg","cosmicsword_glance.ogg","cosmiclance_impact.ogg","cosmiclance_hit.ogg","cosmic_wield.ogg","cosmic_unwield.ogg","cleanse_deconversion.ogg","ability_nova_impact.ogg","ability_nova_cast.ogg","ability_nova_ambient.ogg","ability_lapse.ogg","ability_ingress.ogg","ability_imposition.ogg","ability_glare.ogg","ability_blank.ogg","ability_siphon.ogg","monument_relocate.ogg"]
+path = ["tier-finale.ogg", "projectile_razor_hit.ogg","projectile_razor_reload.ogg","projectile_razor.ogg","stigma-inserted.ogg","tier2.ogg","tier3.ogg","tile_detonate.ogg","spire_draining.ogg","monument_spawn.ogg","gateway-spawn.ogg","monument-ambient.ogg","trigger-sound.ogg","stigma-harvest.ogg","stigma-destroyed.ogg","door_open.ogg","door_close.ogg","chantry_alarm.ogg","colossus_death.ogg","colossus_spawn.ogg","cosmicweapon_swing.ogg","cosmicsword_hit.ogg","cosmicsword-glance.ogg","cosmiclance_impact.ogg","cosmiclance_hit.ogg","cosmic_wield.ogg","cosmic_unwield.ogg","cleanse_deconversion.ogg","gateway-spawn.ogg"]
 SPDX-FileCopyrightText = "By AftrLite(GitHub) for Cosmic Cult. Made using a combination of (Creative Commons 0) samples from freesound.org and personally-recorded foley."
 SPDX-License-Identifier = "CC-BY-SA-3.0"
 SPDX-FileAttributionText = "https://freesound.org/"
@@ -25,8 +25,13 @@ SPDX-License-Identifier = "CC-BY-SA-3.0"
 SPDX-FileAttributionText = "https://octofoss.bandcamp.com/"
 
 [[annotations]]
+path = ["monument-gacha.ogg"]
+SPDX-FileCopyrightText = "By Darklyac for Cosmic Cult."
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+
+[[annotations]]
 path = ["colossus_ambience.ogg"]
-SPDX-FileCopyrightText = "By widgetbeck \u0026 AftrLite(GitHub) for Cosmic Cult. Made using a combination of (Creative Commons 0) samples from freesound.org and personally-recorded foley."
+SPDX-FileCopyrightText = "By widgetbeck & AftrLite(GitHub) for Cosmic Cult. Made using a combination of (Creative Commons 0) samples from freesound.org and personally-recorded foley."
 SPDX-License-Identifier = "CC-BY-SA-3.0"
 SPDX-FileAttributionText = "https://freesound.org/"
 

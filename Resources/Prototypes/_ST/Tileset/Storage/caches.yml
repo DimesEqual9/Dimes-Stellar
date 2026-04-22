@@ -1,0 +1,114 @@
+# SPDX-FileCopyrightText: 2025 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: entity
+  abstract: true
+  id: StellarCacheBase
+  description: A covert, fingerprint-proof tactical bag.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: IgnoresFingerprints # We don't want people being immediately outed just by retrieving their cache.
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 300
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: MovedByPressure
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Animateable
+  - type: Pullable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: Sprite
+    noRot: true
+    sprite: _ST/Tileset/Storage/Cache/cache-cybersun.rsi
+    layers:
+    - state: base
+    - state: unshaded
+      shader: unshaded
+  - type: Storage
+    maxItemSize: Huge
+    grid:
+    - 0,0,7,4
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: UseDelay
+    delay: 0.5
+  - type: ExplosionResistance
+    damageCoefficient: 0.9
+
+- type: entity
+  parent: StellarCacheBase
+  id: StellarCacheAnonymous
+  name: covert tac-bag
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Tileset/Storage/Cache/cache-black.rsi
+    layers:
+    - state: base
+
+- type: entity
+  parent: StellarCacheBase
+  id: StellarCacheCybersun
+  name: CyberSun tac-bag
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Tileset/Storage/Cache/cache-cybersun.rsi
+
+- type: entity
+  parent: StellarCacheBase
+  id: StellarCacheGorlex
+  name: GORLEX tac-bag
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Tileset/Storage/Cache/cache-gorlex.rsi
+
+- type: entity
+  parent: StellarCacheBase
+  id: StellarCacheInterdyne
+  name: InterDyne tac-bag
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Tileset/Storage/Cache/cache-interdyne.rsi

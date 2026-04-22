@@ -9,6 +9,15 @@
     "states": [
         {
             "name": "tsugaru"
+        },
+        {
+            "name": "claws"
+        },
+        {
+            "name": "daisho"
+        },
+        {
+            "name": "masamune"
         }
     ]
 }

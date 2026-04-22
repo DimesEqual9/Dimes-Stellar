@@ -1,0 +1,8 @@
+version = 1
+
+[[annotations]]
+path = ["*.ogg"]
+SPDX-FileCopyrightText = "By AftrLite(GitHub). Made using a combination of (Creative Commons 0) samples from freesound.org."
+SPDX-License-Identifier = "LicenseRef-Wallening"
+SPDX-FileAttributionText = "https://freesound.org/"
+

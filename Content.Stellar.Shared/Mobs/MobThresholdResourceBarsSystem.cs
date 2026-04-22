@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
+using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Mobs;
 using Content.Stellar.Shared.ResourceBars;
@@ -10,8 +11,9 @@ namespace Content.Stellar.Shared.Mobs;
 
 public sealed class MobThresholdResourceBarsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedResourceBarsSystem _resourceBars = default!;
+    [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
+    [Dependency] private readonly SharedResourceBarsSystem _resourceBars = default!;
 
     public override void Initialize()
     {
@@ -42,7 +44,10 @@ public sealed class MobThresholdResourceBarsSystem : EntitySystem
             return;
         }
 
-        var percentage = (args.Damageable.TotalDamage - currentThreshold.Value) / (nextThreshold.Value - currentThreshold.Value);
+#pragma warning disable CA2200
+        var totalDamage = _damageable.GetTotalDamage((ent, args.Damageable));
+#pragma warning restore CA2200
+        var percentage = (totalDamage - currentThreshold.Value) / (nextThreshold.Value - currentThreshold.Value);
 
         _resourceBars.ShowResourceBar(ent.Owner, resourceBar, 1f - percentage.Float());
     }

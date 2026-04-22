@@ -14,7 +14,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
     [color=#999999][italic]"A gentle curtain call."[/italic][/color]
   </Box>
   <Box>
-    <GuideEntityEmbed Entity="CosmicGlyphTruth" Caption=""/>
   </Box>
 
   Otherworldly knowledge floods your mind! Welcome to the [color=#4cabb3]Cosmic Cult[/color], a group conversion antagonist that has set its sights on the end of all things.
@@ -32,9 +31,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Entropy
   <Box>
-    <GuideEntityEmbed Entity="MaterialCosmicCultEntropy1" Caption=""/>
-    <GuideEntityEmbed Entity="MaterialCosmicCultEntropy3" Caption="Motes of Entropy"/>
-    <GuideEntityEmbed Entity="MaterialCosmicCultEntropy5" Caption=""/>
   </Box>
 
   All cultists start with two abilities, or [color=#4cabb3][bold]Influences[/bold][/color] - one of which is [italic][color=#4cabb3]Siphon Entropy[/color][/italic]. This is your bread and butter as a cosmic cultist, and you'll want to use it as often as possible.
@@ -48,7 +44,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
   [textlink="For more on Influences, click here." link="CosmicCultInfluences"]
 
   <Box>
-    <GuideEntityEmbed Entity="CosmicVacuousSpire" Caption="A vacuous spire"/>
   </Box>
 
   If the cult is successful in empowering the Monument, they gain the ability to make [color=#4cabb3]Vacuous Spires[/color]. These can be made by transmuting a Portable Scrubber at a [color=#4cabb3]Glyph[/color].
@@ -57,7 +52,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Conversion
   <Box>
-    <GuideEntityEmbed Entity="CosmicGlyphKnowledge" Caption="A Glyph of Knowledge"/>
   </Box>
 
   Once the Monument has been constructed, you can begin converting crewmembers into cultists. To do this, you will need to use the monument to scribe an appropriate [color=#4cabb3]Glyph[/color], and interact with the glyph while a crewmember is standing over it. Glyphs are visible to non-cultists, so be careful!
@@ -70,7 +64,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Malign Rifts
   <Box>
-    <GuideEntityEmbed Entity="CosmicMalignRift" Caption=""/>
   </Box>
   As your cult progresses, [color=#4cabb3]Malign Rifts[/color] will begin to spawn throughout the surrounding environment. These rifts in realspace bleed unstable astral power, and should be located as soon as possible!
 
@@ -82,9 +75,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Vacuous Chantries
   <Box>
-    <GuideEntityEmbed Entity="CosmicBorgChantry" Caption=""/>
-    <GuideEntityEmbed Entity="BorgChassisGeneric" Caption=""/>
-    <GuideEntityEmbed Entity="MobCosmicColossus" Caption=""/>
   </Box>
   While empowered, one of the ways cultists can choose to expend their empowerment is by using [color=#4cabb3]Null Fragmentation[/color] on a [bold]Cyborg[/bold]. Doing so will trap them inside a [color=#4cabb3]Vacuous Chantry[/color]! This will trigger a stationwide alert, and begin the process of transfiguring the unfortunate victim into an [color=#4cabb3]Entropic Colossus[/color].
 
@@ -96,9 +86,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Malign Law
   <Box>
-    <GuideEntityEmbed Entity="StationAiUploadComputer" Caption=""/>
-    <GuideEntityEmbed Entity="CosmicCultLawBoard" Caption=""/>
-    <GuideEntityEmbed Entity="PlayerStationAi" Caption=""/>
   </Box>
   While empowered, one of the ways cultists can choose to expend their empowerment is by using [color=#4cabb3]Null Fragmentation[/color] on the [bold]AI Upload Console[/bold]. Provided there is a Station AI active, this will forcibly overwrite their laws with a corrupt set of guidelines, aligning them with the Cosmic Cult, in addition to granting them access to the Astral Murmur channel.
 

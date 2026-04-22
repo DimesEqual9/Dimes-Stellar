@@ -21,7 +21,7 @@ public sealed partial class CosmicImposingComponent : Component
     public TimeSpan Expiry;
 
     [DataField]
-    public SpriteSpecifier Sprite = new SpriteSpecifier.Rsi(new("/Textures/_ST/CosmicCult/Effects/ability_imposition_overlay.rsi"), "vfx");
+    public SpriteSpecifier Sprite = new SpriteSpecifier.Rsi(new("/Textures/_ST/CosmicCult/Effects/ability-imposition-overlay.rsi"), "vfx");
 }
 
 [Serializable, NetSerializable]

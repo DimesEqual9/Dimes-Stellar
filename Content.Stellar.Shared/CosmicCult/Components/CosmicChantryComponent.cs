@@ -24,7 +24,7 @@ public sealed partial class CosmicChantryComponent : Component
     [AutoPausedField, DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan CountdownTimer = default!;
 
-    [DataField] public TimeSpan SpawningTime = TimeSpan.FromSeconds(2.4);
+    [DataField] public TimeSpan SpawningTime = TimeSpan.FromSeconds(0.9f);
 
     [DataField] public TimeSpan EventTime = TimeSpan.FromSeconds(150);
 
@@ -40,7 +40,11 @@ public sealed partial class CosmicChantryComponent : Component
 
     [DataField] public EntProtoId Colossus = "MobCosmicColossus";
 
-    [DataField] public EntProtoId SpawnVFX = "CosmicGlareAbilityVFX";
+    [DataField] public EntProtoId FallbackBrain = "CosmicCultMindSink";
+
+    [DataField] public EntProtoId SpawnVfx = "CosmicGlareAbilityVfx";
+
+    [DataField] public EntProtoId FallbackVfx = "CosmicGenericVfx";
 }
 
 [Serializable, NetSerializable]

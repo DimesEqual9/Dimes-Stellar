@@ -4,6 +4,7 @@
 
 using Content.Server.Atmos.Piping.Components;
 using Content.Shared._ES.Camera;
+using Content.Shared.Atmos.Components;
 using Content.Shared.Chat;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;

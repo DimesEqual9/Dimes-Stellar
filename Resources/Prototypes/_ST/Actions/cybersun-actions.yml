@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2026 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: entity
+  parent: BaseAction
+  id: StellarActionCybersunRetractableAosume
+  name: Deploy Aosume IXR
+  description: Rip and tear.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    icon: { sprite : _ST/Icons/Abilities/abilities-cybersun.rsi, state: blades }
+    iconOn: { sprite : _ST/Icons/Abilities/abilities-cybersun.rsi, state: blades-on }
+    useDelay: 2
+    raiseOnAction: true
+    itemIconStyle: BigAction
+  - type: InstantAction
+    event: !type:OnRetractableItemActionEvent
+  - type: RetractableItemAction
+    spawnedPrototype: StellarWeaponMeleeCybersunAosume
+    summonSounds:
+      collection: CybersunMeleeUnsheath
+      params:
+        variation: 0.05
+    retractSounds:
+      path: /Audio/_ST/Weapons/Melee/cybersun-sheath.ogg
+      params:
+        variation: 0.05

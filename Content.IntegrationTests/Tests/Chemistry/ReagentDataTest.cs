@@ -1,3 +1,4 @@
+using Content.IntegrationTests.Fixtures;
 using Content.IntegrationTests.Tests.Interaction;
 using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Reflection;
@@ -8,20 +9,21 @@ namespace Content.IntegrationTests.Tests.Chemistry;
 
 [TestFixture]
 [TestOf(typeof(ReagentData))]
-public sealed class ReagentDataTest : InteractionTest
+public sealed class ReagentDataTest : GameTest
 {
     [Test]
-    public void ReagentDataIsSerializable()
+    public async Task ReagentDataIsSerializable()
     {
-        var reflection = Pair.Server.ResolveDependency<IReflectionManager>();
+        var pair = Pair;
+        var reflection = pair.Server.ResolveDependency<IReflectionManager>();
 
-        using (Assert.EnterMultipleScope())
+        Assert.Multiple(() =>
         {
             foreach (var instance in reflection.GetAllChildren(typeof(ReagentData)))
             {
                 Assert.That(instance.HasCustomAttribute<NetSerializableAttribute>(), $"{instance} must have the NetSerializable attribute.");
                 Assert.That(instance.HasCustomAttribute<SerializableAttribute>(), $"{instance} must have the serializable attribute.");
             }
-        }
+        });
     }
 }

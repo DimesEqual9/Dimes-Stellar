@@ -7,178 +7,127 @@ using Content.Server.RoundEnd;
 using Content.Shared.EntityTable;
 using Content.Stellar.Shared.CosmicCult.Components;
 using Robust.Shared.Audio;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Stellar.Server.CosmicCult.Components;
 
-/// <summary>
-/// Component for the CosmicCultRuleSystem that should store gameplay info.
-/// </summary>
 [RegisterComponent, Access(typeof(CosmicCultRuleSystem))]
 [AutoGenerateComponentPause]
 public sealed partial class CosmicCultRuleComponent : Component
 {
     /// <summary>
-    /// What happens if all of the cultists die.
+    /// What happens if all the cultists die.
     /// </summary>
-    [DataField]
-    public RoundEndBehavior RoundEndBehavior = RoundEndBehavior.ShuttleCall;
+    [DataField] public RoundEndBehavior RoundEndBehavior = RoundEndBehavior.ShuttleCall;
 
     /// <summary>
     /// Sender for shuttle call.
     /// </summary>
-    [DataField]
-    public LocId RoundEndTextSender = "comms-console-announcement-title-centcom";
+    [DataField] public LocId RoundEndTextSender = "comms-console-announcement-title-centcom";
 
     /// <summary>
     /// Text for shuttle call.
     /// </summary>
-    [DataField]
-    public LocId RoundEndTextShuttleCall = "cosmiccult-elimination-shuttle-call";
+    [DataField] public LocId RoundEndTextShuttleCall = "cosmiccult-elimination-shuttle-call";
 
     /// <summary>
     /// Text for announcement.
     /// </summary>
-    [DataField]
-    public LocId RoundEndTextAnnouncement = "cosmiccult-elimination-announcement";
-
-    /// <summary>
-    /// List of entities non-cultists are turned into at the end of the round.
-    /// </summary>
-    [DataField]
-    public List<EntProtoId> CosmicMobs =
-    [
-        "MobCosmicCustodian",
-        "MobCosmicOracle",
-        "MobCosmicLodestar",
-    ];
-
-    /// <summary>
-    /// The entity cultists are turned into at the end of the round.
-    /// </summary>
-    [DataField]
-    public EntProtoId CosmicAscended = "MobCosmicAstralAscended";
+    [DataField] public LocId RoundEndTextAnnouncement = "cosmiccult-elimination-announcement";
 
     /// <summary>
     /// Time for emergency shuttle arrival.
     /// </summary>
-    [DataField]
-    public TimeSpan EvacShuttleTime = TimeSpan.FromMinutes(5);
+    [DataField] public TimeSpan EvacShuttleTime = TimeSpan.FromMinutes(2);
 
-    [DataField]
-    public HashSet<EntityUid> Cultists = [];
+    [DataField] public HashSet<EntityUid> Cultists = [];
 
     /// <summary>
-    /// When true, prevents the wincondition state of Cosmic Cult from being changed.
+    /// The grid EntityUid of the station Cosmic Cult is active on.
     /// </summary>
-    [DataField]
-    public bool WinLocked;
+    [DataField] public EntityUid StationGrid;
 
     /// <summary>
-    /// When true, Malign Rifts are unable to spawn.
+    /// The grid EntityUid of the station Cosmic Cult is active on.
     /// </summary>
-    [DataField]
-    public bool RiftStop;
-
-    [DataField]
-    public WinType WinType = WinType.CrewMinor;
+    [DataField] public MapId? VoidMapId;
 
     /// <summary>
-    ///     The cult's monument
+    ///     Is the finale's set-up step done?
     /// </summary>
-    public Entity<MonumentComponent> MonumentInGame;
+    [DataField] public bool FinaleSetup;
 
     /// <summary>
-    ///     The slow zone of the spawned monument
+    ///     Amount of present crew.
     /// </summary>
-    [DataField]
-    public EntityUid MonumentSlowZone;
+    [DataField] public int TotalCrew;
 
     /// <summary>
-    ///     Current tier of the cult
+    ///     Amount of cultists.
     /// </summary>
-    [DataField]
-    public int CurrentTier;
+    [DataField] public int TotalCult;
 
     /// <summary>
-    ///     Amount of present crew
+    ///     Current "Tier" of the cult.
     /// </summary>
-    [DataField]
-    public int TotalCrew;
+    [DataField] public int Tier = 1;
 
     /// <summary>
-    ///     Amount of cultists
+    ///     How much progress the cult has.
     /// </summary>
-    [DataField]
-    public int TotalCult;
+    [DataField] public double Progress;
 
     /// <summary>
-    ///     Percentage of crew that have been converted into cultists
+    ///     Percentage of crew that have been converted into cultists.
     /// </summary>
-    [DataField]
-    public double PercentConverted;
+    [ViewVariables] public float PortionConverted => (float)TotalCult / (float)TotalCrew;
 
     /// <summary>
-    ///     How much entropy has been siphoned by the cult
+    ///     How much entropy has been siphoned by the cult.
     /// </summary>
-    [DataField]
-    public int EntropySiphoned;
+    [DataField] public int EntropySiphoned;
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan? StewardVoteTimer;
+    public TimeSpan? CultWinTimer;
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan? PrepareFinaleTimer;
+    public TimeSpan? FinaleTimer;
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan? Tier3DelayTimer;
+    public TimeSpan? Tier3Timer;
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan? Tier2DelayTimer;
+    public TimeSpan? Tier2Timer;
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan? ExtraRiftTimer;
+    public TimeSpan? RiftTimer;
 
-    [DataField]
-    public EntityUid? GoalsContainer;
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
+    public TimeSpan? StigmaTimer;
 
-    [DataField]
-    public ProtoId<EntityTablePrototype> Goals = "CosmicCultGoals";
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
+    public TimeSpan? BreachTimer;
 
-    [DataField] public SoundSpecifier WarpSFX = new SoundPathSpecifier("/Audio/_ST/CosmicCult/ability_blank.ogg");
+    [DataField] public EntityUid? GoalsContainer;
 
-    [DataField] public EntProtoId WarpVFX = "CosmicBlankAbilityVFX";
+    [DataField] public ProtoId<EntityTablePrototype> Goals = "CosmicCultGoals";
+
+    [DataField] public CultWinType WinType = CultWinType.CrewWin;
+
+    [DataField] public SoundSpecifier FinaleMusic = new SoundPathSpecifier("/Audio/_ST/CosmicCult/finale.ogg");
 }
 
-public enum WinType : byte
+public enum CultWinType : byte
 {
     /// <summary>
-    ///     Cult complete win. The Cosmic Cult beckoned the final curtain call.
+    /// The crew wins and everybody goes home.
     /// </summary>
-    CultComplete,
+    CrewWin,
+
     /// <summary>
-    ///    Cult major win. The Monument reached Stage 3 and was fully empowered.
+    /// The cult wins and everybody ceases to exist.
     /// </summary>
-    CultMajor,
-    /// <summary>
-    ///    Cult minor win. Even if the crew escaped, The Monument reached Stage 3.
-    /// </summary>
-    CultMinor,
-    /// <summary>
-    ///     Neutral. The Monument didn't reach Stage 3, The crew escaped, but the Cult Leader also escaped.
-    /// </summary>
-    Neutral,
-    /// <summary>
-    ///     Crew minor win. The monument didn't reach Stage 3, The crew escaped, and Cult leader was killed, deconverted, or left on the station.
-    /// </summary>
-    CrewMinor,
-    /// <summary>
-    ///     Crew major win. The monument didn't reach Stage 3, The crew escaped, and the cult was killed.
-    /// </summary>
-    CrewMajor,
-    /// <summary>
-    ///     Crew complete win. The cult was completely deconverted.
-    /// </summary>
-    CrewComplete,
+    CultWin,
 }

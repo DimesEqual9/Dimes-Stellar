@@ -14,7 +14,6 @@ namespace Content.Stellar.Server.CosmicCult.Abilities;
 
 public sealed class CosmicIngressSystem : EntitySystem
 {
-    [Dependency] private readonly CosmicCultSystem _cult = default!;
     [Dependency] private readonly DoorSystem _door = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
@@ -39,9 +38,8 @@ public sealed class CosmicIngressSystem : EntitySystem
         if (uid.Comp.CosmicEmpowered && TryComp<DoorBoltComponent>(target, out var doorBolt))
             _door.SetBoltsDown((target, doorBolt), false);
         _door.StartOpening(target);
-        _audio.PlayPvs(uid.Comp.IngressSFX, uid);
-        Spawn(uid.Comp.AbsorbVFX, Transform(target).Coordinates);
-        _cult.MalignEcho(uid);
+        _audio.PlayPvs(uid.Comp.IngressSfx, uid);
+        Spawn(uid.Comp.GenericVfx, Transform(target).Coordinates);
     }
 
     private void OnColossusIngress(Entity<CosmicColossusComponent> ent, ref EventCosmicColossusIngress args)

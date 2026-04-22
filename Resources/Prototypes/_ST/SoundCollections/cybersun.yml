@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2026 Kazne
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: soundCollection
+  id: CybersunMeleeHit
+  files:
+    - /Audio/_ST/Weapons/Melee/cybersun-hit-1.ogg
+    - /Audio/_ST/Weapons/Melee/cybersun-hit-2.ogg
+
+- type: soundCollection
+  id: CybersunMeleeUnsheath
+  files:
+  - /Audio/_ST/Weapons/Melee/cybersun-unsheath-1.ogg
+  - /Audio/_ST/Weapons/Melee/cybersun-unsheath-2.ogg
+
+- type: soundCollection
+  id: CybersunMeleeSwing
+  files:
+  - /Audio/_ST/Weapons/Melee/cybersun-swing-1.ogg
+  - /Audio/_ST/Weapons/Melee/cybersun-swing-2.ogg
+  - /Audio/_ST/Weapons/Melee/cybersun-swing-3.ogg
+  - /Audio/_ST/Weapons/Melee/cybersun-swing-4.ogg

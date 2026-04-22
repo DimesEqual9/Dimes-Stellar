@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2025 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: StellarWeaponMeleeCybersunBase
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Items/Weapons/Melee/cybersun-masamune.rsi
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+  - type: Item
+    size: Huge
+    sprite: _ST/Items/Weapons/Melee/cybersun-masamune-inhands.rsi
+  - type: MeleeWeapon
+    angle: 90
+    wideAnimationRotation: -135
+    attackRate: 2
+    damage:
+      types:
+        Slash: 11
+        Asphyxiation: 12
+        Cold: 12
+        Structural: 15
+    soundHit:
+      collection: CybersunMeleeHit
+      params:
+        variation: 0.15
+    soundSwing:
+      collection: CybersunMeleeSwing
+      params:
+        variation: 0.15
+        volume: -4
+  - type: Reflect
+    reflectProb: 0.1
+    spread: 120
+    soundOnReflect:
+      path: /Audio/_ST/Weapons/Melee/cybersun-deflect-1.ogg
+      params:
+        variation: 0.35
+  - type: DisarmMalus
+    malus: 1

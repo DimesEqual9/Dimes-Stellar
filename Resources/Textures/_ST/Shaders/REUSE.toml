@@ -15,3 +15,8 @@ SPDX-License-Identifier = "LicenseRef-Wallening"
 path = ["*.png"]
 SPDX-FileCopyrightText = "AftrLite"
 SPDX-License-Identifier = "LicenseRef-Wallening"
+
+[[annotations]]
+path = ["halfcut_animated.swsl"]
+SPDX-FileCopyrightText = "AftrLite"
+SPDX-License-Identifier = "LicenseRef-Wallening"

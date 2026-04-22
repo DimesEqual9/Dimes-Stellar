@@ -1,5 +1,7 @@
 using System.IO;
 using System.Linq;
+using Content.IntegrationTests.Fixtures;
+using Content.IntegrationTests.Fixtures.Attributes;
 using Content.Shared._Citadel.Utilities;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Serialization.Manager.Attributes;
@@ -44,7 +46,7 @@ public sealed class SmallRandomTests
 
 public sealed class SmallRandomGameTests : GameTest
 {
-    [SidedDependency(Side.Server)] private ISerializationManager _ser;
+    [SidedDependency(Side.Server)] private ISerializationManager _ser = default!;
 
     [Test]
     [RunOnSide(Side.Server)]

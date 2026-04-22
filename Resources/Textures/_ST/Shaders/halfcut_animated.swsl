@@ -1,0 +1,34 @@
+// SPDX-FileCopyrightText: 2026 AftrLite
+//
+// SPDX-License-Identifier: LicenseRef-Wallening
+
+light_mode unshaded;
+
+uniform bool reverse = false;
+uniform highp float animTime;
+uniform highp float animDuration;
+
+highp float OutCubic(highp float p)
+{
+    return 1 - pow(1 - p, 3);
+}
+
+highp float InCubic(highp float p)
+{
+    return p * p * p;
+}
+
+void fragment()
+{
+    highp float scalarInverted = 1 - (OutCubic((TIME - animTime) / animDuration) * 0.4) - 0.55;
+    highp float scalar = InCubic((TIME - animTime) / animDuration) * 0.4 + 0.075;
+    highp float method = scalar;
+
+    if (reverse)
+        method = scalarInverted;
+
+    highp vec4 tex = zTexture(UV);
+    highp float mod = (UV.y / 2 > method) ? 1.0 : 0;
+
+    COLOR = vec4(tex.r, tex.g, tex.b, tex.a * mod);
+}

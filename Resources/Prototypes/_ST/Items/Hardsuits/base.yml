@@ -23,7 +23,7 @@
   - type: ClothingSpeedModifier
   - type: HeldSpeedModifier
   - type: Item
-    size: Ginormous
+    size: Huge
   - type: Armor
     modifiers:
       coefficients:

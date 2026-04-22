@@ -81,7 +81,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 15
+    maxDistance: 11
   - type: StellarGunHitscan
     maxDistance: 11
     minDistance: 7
@@ -100,7 +100,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 12.5
+    maxDistance: 12
   - type: StellarGunHitscan
     maxDistance: 12
     minDistance: 8
@@ -119,7 +119,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 10
+    maxDistance: 15
   - type: StellarGunHitscan
     maxDistance: 15
     minDistance: 10
@@ -137,6 +137,8 @@
   id: StellarHitscanEchionGorgon
   categories: [ HideSpawnMenu ]
   components:
+  - type: HitscanBasicRaycast
+    maxDistance: 15
   - type: StellarGunHitscan
     maxDistance: 15
     minDistance: 10
@@ -155,11 +157,10 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 5.33
+    maxDistance: 5
   - type: StellarGunHitscan
     maxDistance: 5
-    minDistance: 5
-    falloffModifier: 0.60
+    falloffModifier: 1
     damage:
       types:
         Heat: 2
@@ -174,7 +175,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 12
+    maxDistance: 11
   - type: StellarGunHitscan
     maxDistance: 11
     minDistance: 7

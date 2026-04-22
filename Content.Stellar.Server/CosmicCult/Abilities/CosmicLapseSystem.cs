@@ -18,7 +18,6 @@ namespace Content.Stellar.Server.CosmicCult.Abilities;
 
 public sealed class CosmicLapseSystem : EntitySystem
 {
-    [Dependency] private readonly CosmicCultSystem _cult = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly PolymorphSystem _polymorph = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
@@ -41,7 +40,7 @@ public sealed class CosmicLapseSystem : EntitySystem
         }
         action.Handled = true;
         var tgtpos = Transform(action.Target).Coordinates;
-        Spawn(uid.Comp.LapseVFX, tgtpos);
+        Spawn(uid.Comp.LapseVfx, tgtpos);
         _popup.PopupEntity(Loc.GetString("cosmicability-lapse-success", ("target", Identity.Entity(action.Target, EntityManager))), uid, uid);
         var species = Comp<HumanoidProfileComponent>(action.Target).Species;
         var polymorphId = "CosmicLapseMob" + species;
@@ -50,6 +49,5 @@ public sealed class CosmicLapseSystem : EntitySystem
             _polymorph.PolymorphEntity(action.Target, polymorphId);
         else
             _polymorph.PolymorphEntity(action.Target, HumanLapse);
-        _cult.MalignEcho(uid);
     }
 }

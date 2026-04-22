@@ -14,7 +14,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
     [color=#999999][italic]"Just an end."[/italic][/color]
   </Box>
   <Box>
-    <GuideEntityEmbed Entity="MobCosmicColossus" Caption=""/>
   </Box>
 
   You are an Entropic Colossus, a towering monstrosity of malign plating and dendritic infestation. Your purpose is the same as that of the [color=#4cabb3]Cosmic Cult[/color]: The end of all things.
@@ -36,7 +35,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Objectives
   <Box>
-    <GuideEntityEmbed Entity="MobTileDamageArea" Caption=""/>
   </Box>
 
   Colossi that have encountered the station by happenstance:
@@ -48,7 +46,6 @@ SPDX-License-Identifier: LicenseRef-CosmicCult
 
   ## Effigy of Entropy
   <Box>
-    <GuideEntityEmbed Entity="CosmicEffigy" Caption=""/>
   </Box>
   Some Colossi may call forth an [color=#4cabb3]Effigy of Entropy[/color]. The effigy is a dangerously unstable malign anomaly, and should be dealt with by the Epistemics department immediately!
 

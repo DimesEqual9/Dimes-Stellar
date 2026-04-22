@@ -23,9 +23,9 @@
     zeroVisible: true
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-echidna.rsi
-    size: Small
+    size: Large
     shape:
-    - 0,0,1,1
+    - 0,0,2,2
   - type: Gun
     clumsyProof: false
     showExamineText: false
@@ -71,9 +71,9 @@
     zeroVisible: true
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-echidna.rsi
-    size: Small
+    size: Large
     shape:
-    - 0,0,1,1
+    - 0,0,2,2
   - type: Gun
     clumsyProof: false
     showExamineText: false
@@ -118,9 +118,9 @@
     zeroVisible: true
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-echidna.rsi
-    size: Small
+    size: Large
     shape:
-    - 0,0,1,1
+    - 0,0,2,2
   - type: Gun
     clumsyProof: false
     showExamineText: false

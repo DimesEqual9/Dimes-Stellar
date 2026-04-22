@@ -33,3 +33,59 @@
     enabled: false
   - type: PlacementReplacement
     key: walls
+
+- type: entity
+  parent: BaseStructure
+  id: StellarDoorMalign
+  name: malign passageway
+  description: Unnerving, but it looks like it cam be moved...
+  categories: [ ForkFiltered ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: CosmicDoor
+  - type: CosmicExamine
+    cultistText: cosmic-examine-text-door
+    othersText: cosmic-examine-text-crew-door
+  - type: InteractionOutline
+  - type: AnimationPlayer
+  - type: Appearance
+  - type: Physics
+  - type: Airtight
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49,-0.49,0.49,0.49"
+        density: 100
+        mask:
+        - FullTileMask
+        layer:
+        - AirlockLayer
+  - type: Door
+    canPry: false
+    bumpOpen: false
+    clickOpen: false
+    closedDrawDepth: Mobs
+    openDrawDepth: BelowMobs
+    closeTimeOne: 0.2
+    closeTimeTwo: 0.6
+    openTimeOne: 0.2
+    openTimeTwo: 0.6
+    openingAnimationTime: 0.8
+    closingAnimationTime: 0.8
+    openSound:
+      path: /Audio/_ST/Machines/airlock_open.ogg
+    closeSound:
+      path: /Audio/_ST/Machines/airlock_close.ogg
+  - type: Occluder
+  - type: BlockWeather
+  - type: RadiationBlocker
+    resistance: 2
+  - type: Sprite
+    sprite: _ST/Tileset/Doors/Misc/malign.rsi # Stellar
+    drawdepth: Mobs
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]

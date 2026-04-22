@@ -23,7 +23,6 @@ namespace Content.Stellar.Server.CosmicCult.Abilities;
 
 public sealed class CosmicGlareSystem : EntitySystem
 {
-    [Dependency] private readonly CosmicCultSystem _cult = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly FlashSystem _flash = default!;
     [Dependency] private readonly SharedPoweredLightSystem _poweredLight = default!;
@@ -44,9 +43,8 @@ public sealed class CosmicGlareSystem : EntitySystem
 
     private void OnCosmicGlare(Entity<CosmicCultComponent> uid, ref EventCosmicGlare args)
     {
-        _audio.PlayPvs(uid.Comp.GlareSFX, uid);
-        Spawn(uid.Comp.GlareVFX, Transform(uid).Coordinates);
-        _cult.MalignEcho(uid);
+        _audio.PlayPvs(uid.Comp.GlareSfx, uid);
+        Spawn(uid.Comp.GlareVfx, Transform(uid).Coordinates);
         args.Handled = true;
 
         _lights.Clear();

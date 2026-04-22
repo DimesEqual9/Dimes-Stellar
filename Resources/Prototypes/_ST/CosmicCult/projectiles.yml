@@ -19,13 +19,13 @@
     impactEffect: CosmicNovaImpactVfx
     forceSound: true
     soundHit:
-      path: /Audio/_ST/CosmicCult/ability_nova_impact.ogg
+      path: /Audio/_ST/CosmicCult/Abilities/ability-nova-impact.ogg
       params:
         variation: 0.1
         volume: +14
   - type: CosmicAstralNova
   - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_novavfx.rsi
+    sprite: _ST/CosmicCult/Effects/ability-nova.rsi
     layers:
     - state: vfx
       shader: unshaded
@@ -34,19 +34,12 @@
     baseRadialAcceleration: 12.5
     baseTangentialAcceleration: 4
     gravPulsePeriod: 0.05
-  - type: SingularityDistortion
-    intensity: +20
-    falloffPower: 1.5
   - type: AmbientSound
     enabled: true
     volume: 0
     range: 10
     sound:
-      path: /Audio/_ST/CosmicCult/ability_nova_ambient.ogg
-  - type: CosmicCorrupting
-    corruptionSpeed: 0.4
-    useVFX: false
-    mobile: true
+      path: /Audio/_ST/CosmicCult/Abilities/ability-nova-ambient.ogg
 
 - type: entity
   id: ProjectileCosmic
@@ -78,9 +71,6 @@
   # Short lifespan
   - type: TimedDespawn
     lifetime: 0.6
-  - type: SingularityDistortion
-    intensity: +5
-    falloffPower: 1.5
   - type: PointLight
     color: "#42a4ae"
     radius: 1.5

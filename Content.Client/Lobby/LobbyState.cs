@@ -38,7 +38,7 @@ namespace Content.Client.Lobby
     // resizing stuff that that allows bc we just will not allow resizing the chat in lobby i think
     public sealed class LobbyState : GameplayStateBase, IMainViewportState
     {
-        [Dependency] private readonly IBaseClient _baseClient = default!;
+        // [Dependency] private readonly IBaseClient _baseClient = default!; // Stellar - no need
         [Dependency] private readonly IConfigurationManager _cfg = default!;
         [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -47,7 +47,7 @@ namespace Content.Client.Lobby
         [Dependency] private readonly IGameTiming _gameTiming = default!;
         [Dependency] private readonly IVoteManager _voteManager = default!;
         [Dependency] private readonly ClientsidePlaytimeTrackingManager _playtimeTracking = default!;
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
+        // [Dependency] private readonly IPrototypeManager _protoMan = default!; // Stellar - no need
 
         // ES START
         [Dependency] private readonly IEyeManager _eyeManager = default!;
@@ -103,7 +103,7 @@ namespace Content.Client.Lobby
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
 
-            _gameTicker.InfoBlobUpdated += UpdateLobbyUi;
+            // _gameTicker.InfoBlobUpdated += UpdateLobbyUi; // Stellar - no need
             _gameTicker.LobbyStatusUpdated += LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated += LobbyLateJoinStatusUpdated;
         }
@@ -119,7 +119,7 @@ namespace Content.Client.Lobby
 
             var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
             chatController.SetMainChat(false);
-            _gameTicker.InfoBlobUpdated -= UpdateLobbyUi;
+            // _gameTicker.InfoBlobUpdated -= UpdateLobbyUi; // Stellar - no need
             _gameTicker.LobbyStatusUpdated -= LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated -= LobbyLateJoinStatusUpdated;
             _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;

@@ -1,0 +1,19 @@
+version = 1
+
+[[annotations]]
+path = ["ability-nova-impact.ogg","ability-nova-cast.ogg","ability-nova-ambient.ogg","ability-lapse.ogg","ability-ingress.ogg","ability-imposition.ogg","ability-glare.ogg", "ability-shunt.ogg","ability-siphon.ogg"]
+SPDX-FileCopyrightText = "By AftrLite(GitHub) for Cosmic Cult. Made using a combination of (Creative Commons 0) samples from freesound.org and personally-recorded foley."
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+SPDX-FileAttributionText = "https://freesound.org/"
+
+[[annotations]]
+path = ["ability-shift-in.ogg", "ability-shift-out.ogg"]
+SPDX-FileCopyrightText = "By Darklyac for Cosmic Cult."
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+
+[[annotations]]
+path = ["ability-gained.ogg"]
+SPDX-FileCopyrightText = "By Octofoss for Cosmic Cult."
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+
+

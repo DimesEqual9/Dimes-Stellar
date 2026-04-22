@@ -1,0 +1,171 @@
+# SPDX-FileCopyrightText: 2025 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: entity
+  parent: WeaponArcStatic
+  id: StellarWeaponVfxCybersun
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: WeaponArcVisuals
+    fadeOut: false
+  - type: Sprite
+    sprite: _ST/Effects/Attack/melee-vfx-cybersun.rsi
+    loop: false
+    scale: 1, -1
+    layers:
+    - state: vfx
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 0.35
+  - type: PointLight
+    color: "#fcbf41"
+    radius: 2.5
+    energy: 6
+    netsync: false
+    castShadows: false
+  - type: LightFade
+    duration: 0.35
+
+- type: entity
+  parent: StellarWeaponVfxCybersun
+  id: StellarWeaponVfxCybersunWide
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    rotation: 0
+    sprite: _ST/Effects/Attack/melee-vfx-cybersun-wide.rsi
+  - type: PointLight
+    color: "#ba8df8"
+
+- type: entity
+  parent: StellarWeaponMeleeCybersunBase
+  id: StellarWeaponMeleeCybersunMasamune
+  name: Masamune XR
+  categories: [ ForkFiltered ]
+  components:
+  - type: Item
+    sprite: _ST/Items/Weapons/Melee/cybersun-masamune-inhands.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left
+      - state: inhand-left-unshaded
+        shader: unshaded
+      right:
+      - state: inhand-right
+      - state: inhand-right-unshaded
+        shader: unshaded
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Slash: 3
+        Structural: 5
+  - type: StellarCrosshair
+    mustWield: false
+    rsi:
+      sprite: _ST/Interface/Crosshair/cybersun-cursor.rsi
+      state: masamune
+
+- type: entity
+  parent: StellarWeaponMeleeCybersunBase
+  id: StellarWeaponMeleeCybersunDaisho
+  name: Daisho FR
+  categories: [ ForkFiltered ]
+  components:
+  - type: Sprite
+    sprite: _ST/Items/Weapons/Melee/cybersun-daisho.rsi
+  - type: Item
+    sprite: _ST/Items/Weapons/Melee/cybersun-daisho.rsi
+  - type: StellarCrosshair
+    rsi:
+      sprite: _ST/Interface/Crosshair/cybersun-cursor.rsi
+      state: daisho
+
+- type: entity
+  parent: StellarWeaponMeleeCybersunBase
+  id: StellarWeaponMeleeCybersunAosume
+  name: Aosume IXR
+  categories: [ ForkFiltered ]
+#  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _ST/Items/Weapons/Melee/cybersun-armblades.rsi
+  - type: Item
+    sprite: _ST/Items/Weapons/Melee/cybersun-armblades.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left
+      - state: inhand-left-unshaded
+        shader: unshaded
+      right:
+      - state: inhand-right
+      - state: inhand-right-unshaded
+        shader: unshaded
+  - type: Wieldable
+  - type: MeleeWeapon
+    autoAttack: true
+    angle: 0
+    animation: StellarWeaponVfxCybersun
+    wideAnimation: StellarWeaponVfxCybersunWide
+    attackRate: 3
+    damage:
+      types:
+        Slash: 9
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Slash: 9
+  - type: Reflect
+    reflectProb: 0.25
+  - type: StellarCrosshair
+    rsi:
+      sprite: _ST/Interface/Crosshair/cybersun-cursor.rsi
+      state: claws
+
+- type: entity
+  parent: BaseItem
+  id: StellarWeaponCybersunKensei
+  name: Kensei CS
+  categories: [ ForkFiltered ]
+  components:
+  - type: StellarModifyThrown
+    throwSpeed: 25
+  - type: Sprite
+    sprite: _ST/Items/Weapons/Misc/cybersun-kensei.rsi
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+  - type: Appearance
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 5
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: EmbeddableProjectile
+    removalTime: 1
+    sound:
+      collection: CybersunMeleeHit
+      params:
+        variation: 0.15
+  - type: EmitSoundOnThrow
+    sound:
+      collection: CybersunMeleeSwing
+      params:
+        variation: 0.15
+  - type: LandAtCursor
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Slash: 8
+        Piercing: 10
+  - type: StaminaDamageOnCollide
+    damage: 45
+  - type: StaminaDamageOnEmbed
+    damage: 10

@@ -1,0 +1,86 @@
+# SPDX-FileCopyrightText: 2026 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-CosmicCult
+
+##################### FONT
+- type: entity
+  parent: BaseStructure
+  id: CosmicFont
+  name: malign font
+  description: An eerie structure that reacts to the presence of those nearby...
+  categories: [ ForkFiltered ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: CosmicFont
+  - type: CosmicExamine
+    cultistText: cosmic-examine-text-font
+  - type: Sprite
+    offset: 0, 0.3
+    loop: false
+    noRot: true
+    drawdepth: Mobs
+    sprite: _ST/CosmicCult/Tileset/font.rsi
+    layers:
+    - state: base
+      map: [ "enum.CosmicFontVisualLayers.Base" ]
+    - state: icon
+      visible: false
+      map: [ "base" ]
+    - state: unshaded
+      shader: unshaded
+      visible: false
+      map: [ "glow" ]
+  - type: AnimationPlayer
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.CosmicFontVisualLayers.Base:
+        base:
+          True: { visible: true }
+        glow:
+          True: { visible: true }
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "0.30,0.40,-0.30,-0.1"
+        density: 190
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+      fontCollider:
+        shape:
+          !type:PhysShapeCircle
+          radius: 2.5
+        mask:
+        - MachineMask
+        layer:
+        - Impassable
+        density: 1000
+        hard: false
+  - type: PointLight
+    color: "#42a4ae"
+    radius: 2.5
+    energy: 6
+    enabled: false
+    castShadows: false
+    netsync: false
+
+- type: entity
+  parent: CosmicFont
+  id: CosmicFontFlipped
+  suffix: Flipped
+  categories: [ ForkFiltered ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    scale: -1, 1
+    offset: -0.03, 0.3

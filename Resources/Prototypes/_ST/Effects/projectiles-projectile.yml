@@ -2,36 +2,36 @@
 #
 # SPDX-License-Identifier: LicenseRef-Wallening
 
-- type: entity
-  id: StellarProjectileDebug
-  name: Debug Projectile
-  parent: BaseBullet
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Sprite
-    sprite: _ST/CosmicCult/Effects/ability_novavfx.rsi
-    layers:
-    - state: vfx
-      shader: unshaded
-  - type: PointLight
-    color: "#42a4ae"
-    radius: 2.0
-    energy: 5.0
-  - type: TimedDespawn
-    lifetime: 10
-  - type: Projectile
-    impactEffect: CosmicNovaImpactVfx
-    forceSound: true
-    soundHit:
-      path: /Audio/_ST/CosmicCult/ability_nova_impact.ogg
-      params:
-        variation: 0.1
-        volume: +14
-  - type: StellarGunProjectile
-    projectileSpeed: 10
-  - type: AmbientSound
-    enabled: true
-    volume: 0
-    range: 10
-    sound:
-      path: /Audio/_ST/CosmicCult/ability_nova_ambient.ogg
+#- type: entity
+#  id: StellarProjectileDebug
+#  name: Debug Projectile
+#  parent: BaseBullet
+#  categories: [ HideSpawnMenu ]
+#  components:
+#  - type: Sprite
+#    sprite: _ST/CosmicCult/Effects/ability_novavfx.rsi
+#    layers:
+#    - state: vfx
+#      shader: unshaded
+#  - type: PointLight
+#    color: "#42a4ae"
+#    radius: 2.0
+#    energy: 5.0
+#  - type: TimedDespawn
+#    lifetime: 10
+#  - type: Projectile
+#    impactEffect: CosmicNovaImpactVfx
+#    forceSound: true
+#    soundHit:
+#      path: /Audio/_ST/CosmicCult/ability_nova_impact.ogg
+#      params:
+#        variation: 0.1
+#        volume: +14
+#  - type: StellarGunProjectile
+#    projectileSpeed: 10
+#  - type: AmbientSound
+#    enabled: true
+#    volume: 0
+#    range: 10
+#    sound:
+#      path: /Audio/_ST/CosmicCult/ability_nova_ambient.ogg

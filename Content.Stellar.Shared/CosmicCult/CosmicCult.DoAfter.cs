@@ -12,22 +12,19 @@ namespace Content.Stellar.Shared.CosmicCult;
 public sealed partial class EventCosmicSiphonDoAfter : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
-public sealed partial class EventCosmicBlankDoAfter : SimpleDoAfterEvent;
-
-[Serializable, NetSerializable]
 public sealed partial class EventAbsorbRiftDoAfter : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
-public sealed partial class EventPurgeRiftDoAfter : SimpleDoAfterEvent;
-
-[Serializable, NetSerializable]
-public sealed partial class StartFinaleDoAfterEvent : SimpleDoAfterEvent;
-
-[Serializable, NetSerializable]
-public sealed partial class CancelFinaleDoAfterEvent : SimpleDoAfterEvent;
-
-[Serializable, NetSerializable]
-public sealed partial class EventCosmicFragmentationDoAfter : SimpleDoAfterEvent;
-
-[Serializable, NetSerializable]
 public sealed partial class EventCosmicColossusIngressDoAfter : SimpleDoAfterEvent;
+
+//
+
+[Serializable, NetSerializable]
+public sealed partial class CosmicStigmaDoAfter : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class CosmicShuntDoAfter : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class CosmicChantryDoAfter : SimpleDoAfterEvent;
+

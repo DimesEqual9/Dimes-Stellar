@@ -10,7 +10,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Stellar.Shared.CosmicCult.Components.Examine;
 
 /// <summary>
-/// Marker component for targets under the effect of Shunt Subjectivity or Astral Projection.
+/// Marker component for targets under the effect of Shunt Subjectivity.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 public sealed partial class CosmicBlankComponent : Component

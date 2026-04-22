@@ -547,6 +547,9 @@ public sealed partial class ExplosionSystem
                 break;
 
             tileDef = newDef;
+
+            if (newDef.Indestructible)
+                break;
         }
 
         if (tileDef.TileId == tileRef.Tile.TypeId)

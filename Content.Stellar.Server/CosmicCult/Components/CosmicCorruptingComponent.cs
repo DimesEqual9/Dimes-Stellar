@@ -91,7 +91,10 @@ public sealed partial class CosmicCorruptingComponent : Component
     /// The tile we spawn when replacing a normal tile.
     /// </summary>
     [DataField] //not a dict like the entity conversion below because there's too many fucking tiles
-    public ProtoId<ContentTileDefinition> ConversionTile = "FloorCosmicCorruption";
+    public List<ProtoId<ContentTileDefinition>> ConversionTiles =
+    [
+        "FloorCosmicCorruption",
+    ];
 
     /// <summary>
     /// Dictionary for what entities to convert to which prototypes. Similar to CosmicCorruptibleComponent, but
@@ -100,21 +103,19 @@ public sealed partial class CosmicCorruptingComponent : Component
     [DataField]
     public Dictionary<EntProtoId, EntProtoId> EntityConversionDict = new Dictionary<EntProtoId, EntProtoId>()
     {
-        {"Window", "WindowCosmicCult"},
-        {"Table", "CosmicTable"},
-        {"Chair", "CosmicChair"},
+        {"Window", "StellarWindowMalign"},
     };
 
     /// <summary>
     /// The VFX entity we spawn when corruption occurs.
     /// </summary>
     [DataField]
-    public EntProtoId TileConvertVFX = "CosmicFloorSpawnVFX";
+    public EntProtoId TileConvertVfx = "CosmicFloorSpawnVfx";
 
     /// <summary>
     /// The VFX entity we spawn when walls get deleted.
     /// </summary>
     [DataField]
-    public EntProtoId TileDisintegrateVFX = "CosmicGenericVFX";
+    public EntProtoId TileDisintegrateVfx = "CosmicGenericVfx";
 
 }

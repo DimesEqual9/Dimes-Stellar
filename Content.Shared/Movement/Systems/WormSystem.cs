@@ -11,7 +11,7 @@ namespace Content.Shared.Movement.Systems;
 /// </summary>
 public sealed class WormSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
+    // [Dependency] private readonly AlertsSystem _alerts = default!; // Stellar - we don't use this
     [Dependency] private readonly SharedStunSystem _stun = default!;
 
     public override void Initialize()

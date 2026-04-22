@@ -22,7 +22,7 @@ namespace Content.Server.Light.EntitySystems
     public sealed class HandheldLightSystem : SharedHandheldLightSystem
     {
         [Dependency] private readonly ActionsSystem _actions = default!;
-        [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
+        // [Dependency] private readonly ActionContainerSystem _actionContainer = default!; // Stellar - no need
         [Dependency] private readonly PopupSystem _popup = default!;
         [Dependency] private readonly PowerCellSystem _powerCell = default!;
         [Dependency] private readonly SharedBatterySystem _battery = default!;

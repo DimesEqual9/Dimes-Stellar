@@ -31,23 +31,17 @@ public sealed partial class CosmicColossusComponent : Component
 
     [DataField] public SoundSpecifier DeathSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/colossus_death.ogg");
 
-    [DataField] public SoundSpecifier IngressSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/ability_ingress.ogg");
+    [DataField] public SoundSpecifier IngressSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/Abilities/ability-ingress.ogg");
 
     [DataField] public SoundSpecifier DoAfterSfx = new SoundPathSpecifier("/Audio/Machines/airlock_creaking.ogg");
 
-    [DataField] public EntProtoId CultVfx = "CosmicGenericVFX";
+    [DataField] public EntProtoId CultVfx = "CosmicGenericVfx";
 
-    [DataField] public EntProtoId CultBigVfx = "CosmicGlareAbilityVFX";
+    [DataField] public EntProtoId CultBigVfx = "CosmicGlareAbilityVfx";
 
     [DataField] public EntProtoId Attack1Vfx = "CosmicColossusAttack1Vfx";
 
     [DataField] public EntProtoId TileDetonations = "MobTileDamageZone";
-
-    [DataField] public EntProtoId EffigyPrototype = "CosmicEffigy";
-
-    [DataField] public EntProtoId EffigyPlaceAction = "ActionCosmicColossusEffigy";
-
-    [DataField] public EntityUid? EffigyPlaceActionEntity;
 
     [DataField] public TimeSpan IngressDoAfter = TimeSpan.FromSeconds(4);
 

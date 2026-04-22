@@ -11,7 +11,9 @@
   components:
   - type: Sprite
     drawdepth: Walls
-  - type: SpriteFade
+  - type: InteractionPopup
+    interactSuccessString: comp-window-knock
+    messagePerceivedByOthers: comp-window-knock
   - type: Icon
     state: full
   - type: StellarWallSmooth
@@ -19,12 +21,13 @@
     fullState: window
   - type: PlacementReplacement
     key: walls
+  - type: Physics
+    bodyType: Static
   - type: Fixtures
     fixtures:
       fix1:
         shape:
-          !type:PhysShapeAabb
-          bounds: "-0.5,-0.5,0.5,0.5"
+          !type:PhysShapeAabb {}
         mask:
         - FullTileMask
         layer:
@@ -38,8 +41,12 @@
     trackAllDamage: true
     damageOverlay:
       sprite: _ST/Tileset/Windows/cracks.rsi
-  - type: StaticPrice
-    price: 150
+  - type: Airtight
+  - type: BlockWeather
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: GlassSmack
   - type: Destructible
     thresholds:
     - trigger:
@@ -51,6 +58,8 @@
           collection: WindowShatter
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: CosmicCorruptible
+    convertTo: StellarWindowMalign
 
 - type: entity
   id: StellarBaseWindowFrame
@@ -77,8 +86,7 @@
     fixtures:
       fix1:
         shape:
-          !type:PhysShapeAabb
-          bounds: "-0.5,-0.5,0.5,0.5"
+          !type:PhysShapeAabb {}
         mask:
         - FullTileMask
         layer:
@@ -375,3 +383,27 @@
   - type: Construction
     graph: StellarWindowShuttle
     node: StellarWindowShuttle
+
+############## WINDOW MALIGN
+- type: entity
+  id: StellarWindowMalign
+  parent:
+  - StellarWindowBase
+  name: malign pane
+  description: An odd-looking window. Something about it unnerves you.
+  components:
+  - type: Sprite
+    sprite: _ST/Tileset/Windows/window_malign.rsi
+  - type: Icon
+    sprite: _ST/Tileset/Windows/window_malign.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WindowShatter
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

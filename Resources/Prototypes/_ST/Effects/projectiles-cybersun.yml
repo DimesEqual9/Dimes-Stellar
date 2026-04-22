@@ -64,7 +64,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 12.5
+    maxDistance: 10
   - type: StellarGunHitscan
     maxDistance: 10
     minDistance: 6
@@ -82,7 +82,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 25
+    maxDistance: 20
   - type: StellarGunHitscan
     maxDistance: 20
     minDistance: 15

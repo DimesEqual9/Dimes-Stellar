@@ -8,72 +8,79 @@ using Content.Shared.StatusIcon;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
 using Content.Stellar.Shared.CosmicCult.Prototypes;
-using Content.Shared.Damage.Prototypes;
-using Content.Shared.Alert;
-using Robust.Shared.Serialization;
+using Robust.Shared.Utility;
 
 namespace Content.Stellar.Shared.CosmicCult.Components;
 
 /// <summary>
 /// Added to entities to tag that they are a cosmic cultist. Holds nearly all cultist-relevant data! Removal of this component is used to call for a deconversion
 /// </summary>
-[RegisterComponent, NetworkedComponent]
-[AutoGenerateComponentState]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class CosmicCultComponent : Component
 {
-    #region Housekeeping
-
     /// <summary>
     /// The status icon prototype displayed for cosmic cultists.
     /// </summary>
-    [DataField]
-    public ProtoId<FactionIconPrototype> StatusIcon = "CosmicCultIcon";
-    #endregion
+    [DataField] public ProtoId<FactionIconPrototype> StatusIcon = "CosmicCultIcon";
+
+    public int ProgressGoal = 10;
+
+    /// <summary>
+    /// How much progress this cultist personally has towards gaining their next Influence.
+    /// </summary>
+    [DataField, AutoNetworkedField] public int PersonalProgress;
+
+    /// <summary>
+    /// How many times this cultist is allowed to visit The Monument to gain a new Influence.
+    /// </summary>
+    [DataField, AutoNetworkedField] public int MonumentVisits;
+
+    /// <summary>
+    /// Owned and unlocked influences.
+    /// </summary>
+    [DataField, AutoNetworkedField] public List<ProtoId<InfluencePrototype>> OwnedInfluences = [];
+
+    [DataField, AutoNetworkedField] public Dictionary<ProtoId<InfluencePrototype>, float> UnlockedInfluences = [];
 
     #region Ability Data
-    [DataField]
-    [AutoNetworkedField]
-    public HashSet<ProtoId<InfluencePrototype>> UnlockedInfluences =
-    [
-        "InfluenceAberrantLapse",
-        "InfluenceNullGlare",
-        "InfluenceEschewMetabolism",
-    ];
-
-    [DataField]
-    [AutoNetworkedField]
-    public HashSet<EntProtoId> CosmicCultActions =
-    [
-        "ActionCosmicSiphon",
-        "ActionCosmicBlank",
-    ];
-
-    [DataField]
-    public EntProtoId CosmicFragmentationAction = "ActionCosmicFragmentation";
-
     public HashSet<EntityUid?> ActionEntities = [];
 
-    [DataField]
-    [AutoNetworkedField]
-    public HashSet<ProtoId<InfluencePrototype>> OwnedInfluences = [];
+    [DataField, AutoNetworkedField] public HashSet<EntProtoId> CosmicCultActions =
+    [
+        "ActionCosmicSiphon",
+        "ActionCosmicShunt",
+    ];
+
+    [DataField] public EntProtoId CosmicFragmentationAction = "ActionCosmicFragmentation";
+
+    [DataField] public EntProtoId CosmicShiftAction = "ActionCosmicShift";
+
+    [DataField] public EntityUid? CosmicShiftActionActionEntity;
+
+    /// <summary>
+    /// The duration of the doAfters and time away for Astral Shift.
+    /// </summary>
+    [DataField] public TimeSpan CosmicShiftInOut = TimeSpan.FromSeconds(2);
+    [DataField] public TimeSpan CosmicShiftWindup = TimeSpan.FromSeconds(3);
+    public static readonly TimeSpan DefaultCosmicShiftWindup = TimeSpan.FromSeconds(3);
 
     /// <summary>
     /// The duration of the doAfter for Siphon Entropy
     /// </summary>
-    [DataField] public TimeSpan CosmicSiphonDelay = TimeSpan.FromSeconds(2);
-    public static readonly TimeSpan DefaultCosmicSiphonDelay = TimeSpan.FromSeconds(2);
+    [DataField] public TimeSpan CosmicSiphonDelay = TimeSpan.FromSeconds(1);
+    public static readonly TimeSpan DefaultCosmicSiphonDelay = TimeSpan.FromSeconds(1);
 
     /// <summary>
     /// The duration of the doAfter for Shunt Subjectivity
     /// </summary>
-    [DataField] public TimeSpan CosmicBlankDelay = TimeSpan.FromSeconds(0.6f);
-    public static readonly TimeSpan DefaultCosmicBlankDelay = TimeSpan.FromSeconds(0.6f);
+    [DataField] public TimeSpan CosmicShuntDelay = TimeSpan.FromSeconds(0.6f);
+    public static readonly TimeSpan DefaultCosmicShuntDelay = TimeSpan.FromSeconds(0.6f);
 
     /// <summary>
     /// The duration of Shunt Subjectivity's trip to the cosmic void
     /// </summary>
-    [DataField] public TimeSpan CosmicBlankDuration = TimeSpan.FromSeconds(22);
-    public static readonly TimeSpan DefaultCosmicBlankDuration = TimeSpan.FromSeconds(22);
+    [DataField] public TimeSpan CosmicShuntDuration = TimeSpan.FromSeconds(22);
+    public static readonly TimeSpan DefaultCosmicShuntDuration = TimeSpan.FromSeconds(22);
 
     /// <summary>
     /// The duration of Vacuous Imposition's shield.
@@ -97,14 +104,12 @@ public sealed partial class CosmicCultComponent : Component
     /// The movement speed penalty inflicted by Null Glare.
     /// </summary>
     [DataField] public float CosmicGlarePenalty = 0.3f;
-    public static readonly float DefaultCosmicGlarePenalty = 0.3f;
 
     /// <summary>
     /// The stun duration inflicted by Null Glare.
     /// </summary>
     [DataField] public TimeSpan CosmicGlareStun = TimeSpan.FromSeconds(0);
     public static readonly TimeSpan DefaultCosmicGlareStun = TimeSpan.FromSeconds(0);
-
 
     /// <summary>
     /// The amount of Entropy generated by Siphon Entropy
@@ -116,19 +121,9 @@ public sealed partial class CosmicCultComponent : Component
 
     #region Misc Data
     /// <summary>
-    /// The amount of Entropy the user is allowed to spend at The Monument.
+    /// How many stacks of Astral Aegis this cultist has.
     /// </summary>
-    [DataField, AutoNetworkedField] public int EntropyBudget;
-
-    /// <summary>
-    /// The amount of Entropy the user is currently holding on to.
-    /// </summary>
-    [DataField, AutoNetworkedField] public int EntropyStored;
-
-    /// <summary>
-    /// The maximum amount of Entropy the user can have at once.
-    /// </summary>
-    [DataField, AutoNetworkedField] public int EntropyStoredCap = 14;
+    [DataField, AutoNetworkedField] public int AstralAegisStacks;
 
     /// <summary>
     /// Wether or not this cultist has been empowered by a Malign Rift.
@@ -143,17 +138,6 @@ public sealed partial class CosmicCultComponent : Component
     /// Wether or not this cultist needs to respirate.
     /// </summary>
     [DataField, AutoNetworkedField] public bool Respiration = true;
-
-    /// <summary>
-    /// A string for storing what damage container this cultist had upon conversion.
-    /// </summary>
-    [DataField, AutoNetworkedField] public ProtoId<DamageContainerPrototype> StoredDamageContainer = "Biological";
-
-    /// <summary>
-    /// The alert for displaying the cultist's currently held Entropy.
-    /// </summary>
-    [DataField]
-    public ProtoId<AlertPrototype> EntropyAlert = "CosmicEntropy";
     #endregion
 
     /// <summary>
@@ -164,21 +148,20 @@ public sealed partial class CosmicCultComponent : Component
 
     #region VFX & SFX
     [DataField] public EntProtoId SpawnWisp = "MobCosmicWisp";
-    [DataField] public EntProtoId LapseVFX = "CosmicLapseAbilityVFX";
-    [DataField] public EntProtoId BlankVFX = "CosmicBlankAbilityVFX";
-    [DataField] public EntProtoId GlareVFX = "CosmicGlareAbilityVFX";
-    [DataField] public EntProtoId AbsorbVFX = "CosmicGenericVFX";
-    [DataField] public EntProtoId ImpositionVFX = "CosmicImpositionAbilityVFX";
-    [DataField] public SoundSpecifier BlankSFX = new SoundPathSpecifier("/Audio/_ST/CosmicCult/ability_blank.ogg");
-    [DataField] public SoundSpecifier IngressSFX = new SoundPathSpecifier("/Audio/_ST/CosmicCult/ability_ingress.ogg");
-    [DataField] public SoundSpecifier GlareSFX = new SoundPathSpecifier("/Audio/_ST/CosmicCult/ability_glare.ogg");
-    [DataField] public SoundSpecifier NovaCastSFX = new SoundPathSpecifier("/Audio/_ST/CosmicCult/ability_nova_cast.ogg");
-    [DataField] public SoundSpecifier ImpositionSFX = new SoundPathSpecifier("/Audio/_ST/CosmicCult/ability_imposition.ogg");
+    [DataField] public EntProtoId LapseVfx = "CosmicLapseAbilityVfx";
+    [DataField] public EntProtoId ShuntVfx = "CosmicShuntAbilityVfx";
+    [DataField] public EntProtoId ShiftVfx = "CosmicShiftAbilityVfx";
+    [DataField] public EntProtoId GlareVfx = "CosmicGlareAbilityVfx";
+    [DataField] public EntProtoId GenericVfx = "CosmicGenericVfx";
+    [DataField] public EntProtoId ImpositionVfx = "CosmicImpositionAbilityVfx";
+    [DataField] public SoundSpecifier MonumentGachaSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/monument-gacha.ogg");
+    [DataField] public SoundSpecifier AegisDeflectSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/cosmicsword-glance.ogg");
+    [DataField] public SoundSpecifier AbilityGainSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/Abilities/ability-gained.ogg");
+    [DataField] public SoundSpecifier TriggerSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/trigger-sound.ogg");
+    [DataField] public SoundSpecifier ShuntSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/Abilities/ability-shunt.ogg");
+    [DataField] public SoundSpecifier IngressSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/Abilities/ability-ingress.ogg");
+    [DataField] public SoundSpecifier GlareSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/Abilities/ability-glare.ogg");
+    [DataField] public SoundSpecifier NovaCastSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/Abilities/ability-nova-cast.ogg");
+    [DataField] public SoundSpecifier ImpositionSfx = new SoundPathSpecifier("/Audio/_ST/CosmicCult/Abilities/ability-imposition.ogg");
     #endregion
-}
-
-[NetSerializable, Serializable]
-public enum CultAlertVisualLayers : byte
-{
-    Counter,
 }

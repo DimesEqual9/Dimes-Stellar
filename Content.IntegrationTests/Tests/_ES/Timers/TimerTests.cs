@@ -5,8 +5,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Content.IntegrationTests.Tests._Citadel;
-using Content.IntegrationTests.Tests._Citadel.Constraints;
+using Content.IntegrationTests.Fixtures;
+using Content.IntegrationTests.Fixtures.Attributes;
+using Content.IntegrationTests.NUnit.Constraints;
 using Content.Stellar.Shared._ES.Core.Timer;
 using Content.Stellar.Shared._ES.Core.Timer.Components;
 using Robust.Server.GameStates;
@@ -25,8 +26,8 @@ public sealed class TimerTests : GameTest
 
     [SidedDependency(Side.Server)] private readonly IReflectionManager _reflection = default!;
 
-    [System(Side.Server)] private readonly ESEntityTimerSystem _sTimer = default!;
-    [System(Side.Server)] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [SidedDependency(Side.Server)] private readonly ESEntityTimerSystem _sTimer = default!;
+    [SidedDependency(Side.Server)] private readonly PvsOverrideSystem _pvsOverride = default!;
 
     [Test]
     [TestOf(typeof(ESEntityTimerEvent))]

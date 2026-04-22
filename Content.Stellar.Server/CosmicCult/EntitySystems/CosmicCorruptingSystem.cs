@@ -82,7 +82,7 @@ public sealed class CosmicCorruptingSystem : EntitySystem
         if (xform.GridUid is not { } gridUid || !TryComp<MapGridComponent>(gridUid, out var mapGrid))
             return;
 
-        var convertTile = (ContentTileDefinition)_tileDefinition[ent.Comp.ConversionTile];
+        var convertTile = (ContentTileDefinition)_tileDefinition[_rand.Pick(ent.Comp.ConversionTiles)];
 
         //if this is a mobile corruptor, reset the list of corruptable tiles every attempt.
         //not a super clean solution because I didn't account for the astral nova in the first rewrite but it works well enough for our purposes.
@@ -136,7 +136,7 @@ public sealed class CosmicCorruptingSystem : EntitySystem
 
                 //spawn the vfx if we should
                 if (ent.Comp.UseVFX)
-                    Spawn(ent.Comp.TileConvertVFX, _turfs.GetTileCenter(tileRef));
+                    Spawn(ent.Comp.TileConvertVfx, _turfs.GetTileCenter(tileRef));
 
                 ent.Comp.CorruptableTiles.Remove(pos);
             }
@@ -172,7 +172,7 @@ public sealed class CosmicCorruptingSystem : EntitySystem
 
         if (ent.Comp.FloodFillStarting) //todo make this async? it doesn't actually run that much though
         {
-            var convertTile = (ContentTileDefinition)_tileDefinition[ent.Comp.ConversionTile];
+            var convertTile = (ContentTileDefinition)_tileDefinition[_rand.Pick(ent.Comp.ConversionTiles)];
             var visitedTiles = new HashSet<Vector2i>();
             var tilesToVisit = new HashSet<Vector2i> { tile.GridIndices };
 

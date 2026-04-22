@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: 2026 AftrLite
+#
+# SPDX-License-Identifier: LicenseRef-Wallening
+
+- type: entity
+  abstract: true
+  parent: StellarHitscanVisualsBase
+  id: StellarHitscanMalignBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicRaycast
+    collisionMask: Opaque
+  - type: StellarGunHitscan
+    multiShotAmount: 1
+    collisionMask: BulletImpassable
+    lightColor: "#42a4ae"
+    hitColor: "#42a4ae"
+    unshaded: true
+    ray:
+      sprite: _ST/Projectiles/Guns/malign-beam.rsi
+
+- type: entity
+  parent: StellarHitscanMalignBase
+  id: StellarHitscanMalignRazor
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Cold: 5
+        Asphyxiation: 5
+  - type: HitscanBasicRaycast
+    maxDistance: 6
+  - type: StellarGunHitscan
+    maxDistance: 6
+    damage:
+      types:
+        Cold: 5
+        Asphyxiation: 5

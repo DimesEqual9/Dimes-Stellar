@@ -10,10 +10,12 @@ using Content.Stellar.Shared.CosmicCult;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Effects;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Projectiles;
 using Content.Shared.Stunnable;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Audio;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
@@ -23,13 +25,12 @@ namespace Content.Stellar.Server.CosmicCult.Abilities;
 
 public sealed class CosmicNovaSystem : EntitySystem
 {
-    [Dependency] private readonly CosmicCultSystem _cult = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
     [Dependency] private readonly SharedCosmicCultSystem _cosmicCult = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly SharedProjectileSystem _projectile = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
@@ -58,9 +59,29 @@ public sealed class CosmicNovaSystem : EntitySystem
 
         args.Handled = true;
         var ent = Spawn(Projectile, startPos);
-        _gun.ShootProjectile(ent, delta, userVelocity, args.Performer, args.Performer, 5f);
-        _audio.PlayPvs(uid.Comp.NovaCastSFX, uid, AudioParams.Default.WithVariation(0.1f));
-        _cult.MalignEcho(uid);
+        ShootProjectile(ent, delta, userVelocity, args.Performer, args.Performer, 5f);
+        _audio.PlayPvs(uid.Comp.NovaCastSfx, uid, AudioParams.Default.WithVariation(0.1f));
+    }
+
+    // AftrLite, why aren't you using _gunSystem's ShootProjectile()? | Because i've decoupled a lot of the GunSystem on Stellar and don't want to rely on it.
+    // TODO: Move this into Stellar's Gun System.
+    private void ShootProjectile(EntityUid uid, Vector2 direction, Vector2 gunVelocity, EntityUid? gunUid, EntityUid? user = null, float speed = 10f)
+    {
+        var physics = EnsureComp<PhysicsComponent>(uid);
+        var projectile = EnsureComp<ProjectileComponent>(uid);
+
+        var targetMapVelocity = gunVelocity + direction.Normalized() * speed;
+        var currentMapVelocity = _physics.GetMapLinearVelocity(uid, physics);
+        var finalLinear = physics.LinearVelocity + targetMapVelocity - currentMapVelocity;
+        _physics.SetLinearVelocity(uid, finalLinear, body: physics);
+        _physics.SetBodyStatus(uid, physics, BodyStatus.InAir);
+
+        projectile.Weapon = gunUid;
+        var shooter = user ?? gunUid;
+        if (shooter != null)
+            _projectile.SetShooter(uid, projectile, shooter.Value);
+
+        _transform.SetWorldRotation(uid, direction.ToWorldAngle() + projectile.Angle);
     }
 
     private void OnNovaCollide(Entity<CosmicAstralNovaComponent> uid, ref StartCollideEvent args)
@@ -68,8 +89,8 @@ public sealed class CosmicNovaSystem : EntitySystem
         if (_cosmicCult.EntityIsCultist(args.OtherEntity) || HasComp<BibleUserComponent>(args.OtherEntity) || !HasComp<MobStateComponent>(args.OtherEntity))
             return;
         if (uid.Comp.DoStun)
-            _stun.TryUpdateParalyzeDuration(args.OtherEntity, TimeSpan.FromSeconds(2f));
-        _damageable.TryChangeDamage(args.OtherEntity, uid.Comp.CosmicNovaDamage); // This'll probably trigger two or three times because of how collision works. I'm not being lazy here, it's a feature (kinda /s)
+            _stun.TryUpdateParalyzeDuration(args.OtherEntity, TimeSpan.FromSeconds(1f));
+        _damageable.TryChangeDamage(args.OtherEntity, uid.Comp.CosmicNovaDamage); // This can possibly trigger two or three times because of how collision works. Keep that in mind.
         _color.RaiseEffect(Color.Red, new List<EntityUid>() { args.OtherEntity }, Filter.Pvs(args.OtherEntity, entityManager: EntityManager));
     }
 }

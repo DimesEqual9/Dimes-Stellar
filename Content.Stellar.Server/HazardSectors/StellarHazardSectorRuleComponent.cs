@@ -27,7 +27,7 @@ public sealed partial class StellarHazardSectorRuleComponent : Component
     /// Weather that plays on the station during this hazard sector. Passed along to StellarHazardSectorStationComponent.
     /// </summary>
     [DataField]
-    public ProtoId<WeatherPrototype>? Weather;
+    public EntProtoId<WeatherStatusEffectComponent>? Weather;
 
     /// <summary>
     /// What light color to use for the hazard sector's environment.

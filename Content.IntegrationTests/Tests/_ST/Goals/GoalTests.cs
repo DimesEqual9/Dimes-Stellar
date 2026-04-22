@@ -2,8 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
-using Content.IntegrationTests.Tests._Citadel;
-using Content.IntegrationTests.Tests._Citadel.Constraints;
+using Content.IntegrationTests.Fixtures;
+using Content.IntegrationTests.Fixtures.Attributes;
+using Content.IntegrationTests.NUnit.Constraints;
 using Content.Shared.Players;
 using Content.Stellar.Shared.Goals;
 using Robust.Shared.GameObjects;
@@ -24,8 +25,8 @@ public sealed class GoalTests : GameTest
 
     private const string GoalTestsBlankGoal = "GoalTestsBlankGoal";
 
-    [System(Side.Server)] private readonly StellarGoalsSystem _sGoals = default!;
-    [System(Side.Client)] private readonly StellarGoalsSystem _cGoals = default!;
+    [SidedDependency(Side.Server)] private readonly StellarGoalsSystem _sGoals = default!;
+    [SidedDependency(Side.Client)] private readonly StellarGoalsSystem _cGoals = default!;
 
     public override PoolSettings PoolSettings => new()
     {
@@ -38,8 +39,8 @@ public sealed class GoalTests : GameTest
     {
         await Pair.CreateTestMap();
 
-        _ = await AssignPlayerBody(Player!);
-        var sMind = Player!.ContentData()!.Mind!.Value;
+        _ = await AssignPlayerBody(ServerSession!);
+        var sMind = ServerSession!.ContentData()!.Mind!.Value;
         var cMind = ToClientUid(sMind);
         Entity<StellarGoalComponent>? sGoal = null;
 

@@ -38,8 +38,10 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
     [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly SharedMapSystem _maps = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly SharedPointLightSystem _light = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
+    private static readonly EntProtoId BulletProto = "StellarBulletBase";
     private static readonly EntProtoId HitscanProto = "StellarHitscanBase";
 
     public override void Initialize()
@@ -61,7 +63,7 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
             return false;
 
         var gunEnt = _hands.GetActiveItem(player);
-        if (gunEnt is null || !EntityManager.TryGetComponent<StellarGunReloadableComponent>(gunEnt.Value, out var gunComp))
+        if (gunEnt is null || !TryComp<StellarGunReloadableComponent>(gunEnt.Value, out var gunComp))
             return false;
 
         if (!DoAfter.IsRunning(gunComp.ReloadDoAfter) && gunComp.AmmoReserves > 0 && gunComp.AmmoCount < gunComp.AmmoMagCapacity)
@@ -75,7 +77,8 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
 
     private void OnMuzzleFlash(StellarMuzzleFlashEvent args)
     {
-        // RenderMuzzleFlash(GetEntity(args.Uid), args.Angle, args.Prototype); // Why is this here? Idk.
+        var userUid = GetEntity(args.Gun);
+        RenderMuzzleFlash(userUid, args.Angle, args.Prototype); // TODO: fix muzzle flash prediction
     }
 
     protected override void StellarMuzzleFlash(EntityUid gunUid, StellarMuzzleFlashEvent args, EntityUid? user = null)
@@ -87,7 +90,6 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
     private void OnHitscan(StellarHitscanEvent args)
     {
         var gunUid = GetEntity(args.Gun);
-
         CalculateHitscan(gunUid, args);
     }
 
@@ -125,7 +127,7 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
             RenderMiddle(shooter, shotAngle, middle, distance, speed, mod, unshaded);
             RenderStart(shooter, shotAngle, start, speed, mod, unshaded);
             RenderEnd(shooter, shotAngle, end, distance, speed, mod, unshaded);
-            RenderBullet(shooter, shotAngle, bullet, distance, speed, mod);
+            RenderBullet(shooter, shotAngle, bullet, lightColor, distance, speed, mod);
         }
     }
 #region Rendering
@@ -205,7 +207,7 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
         _animPlayer.Play(effectEnt, muzzleAnim, "muzzle-effect");
     }
 
-    private void RenderBullet(EntityUid shooter, Angle shotAngle, SpriteSpecifier.Rsi sprite, float distance, float speed, float mod)
+    private void RenderBullet(EntityUid shooter, Angle shotAngle, SpriteSpecifier.Rsi sprite, Color lightColor, float distance, float speed, float mod)
     {
         if (sprite is not { } rsi || shooter == EntityUid.Invalid)
             return;
@@ -222,8 +224,9 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
         else
             return;
 
-        var effectEnt = Spawn(HitscanProto, coordinates);
+        var effectEnt = Spawn(BulletProto, coordinates);
         var effectSprite = Comp<SpriteComponent>(effectEnt);
+        _light.SetColor(effectEnt, lightColor);
         _transform.SetWorldRotationNoLerp(effectEnt, shotAngle);
         _sprite.LayerSetSprite((effectEnt, effectSprite), StellarHitscanLayers.Unshaded, rsi);
         _sprite.LayerSetRsiState((effectEnt, effectSprite), StellarHitscanLayers.Unshaded, rsi.RsiState);
@@ -241,6 +244,30 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
                     KeyFrames =
                     {
                         new AnimationTrackSpriteFlick.KeyFrame(rsi.RsiState, (time - mod) / 500),
+                    },
+                },
+                new AnimationTrackComponentProperty()
+                {
+                    ComponentType = typeof(PointLightComponent),
+                    Property = nameof(PointLightComponent.Offset),
+                    InterpolationMode = AnimationInterpolationMode.Linear,
+                    KeyFrames =
+                    {
+                        new AnimationTrackProperty.KeyFrame(new Vector2(0, 0f), 0),
+                        new AnimationTrackProperty.KeyFrame(new Vector2(0.5f, 0f), time / 1000),
+                        new AnimationTrackProperty.KeyFrame(new Vector2(distance - 0.25f, 0f), time / 750),
+                    },
+                },
+                new AnimationTrackComponentProperty()
+                {
+                    ComponentType = typeof(PointLightComponent),
+                    Property = nameof(PointLightComponent.Energy),
+                    InterpolationMode = AnimationInterpolationMode.Linear,
+                    KeyFrames =
+                    {
+                        new AnimationTrackProperty.KeyFrame(1f, 0f),
+                        new AnimationTrackProperty.KeyFrame(5f, time / 500),
+                        new AnimationTrackProperty.KeyFrame(0f, time / 300),
                     },
                 },
                 new AnimationTrackComponentProperty()
@@ -518,9 +545,9 @@ public sealed partial class StellarGunSystem : SharedStellarGunSystem
 
     private void SendReloadMessage(EntityUid gun, EntityUid player)
     {
-        var gunEnt = EntityManager.GetNetEntity(gun);
-        var playerEnt = EntityManager.GetNetEntity(player);
-        EntityManager.RaisePredictiveEvent(new StellarManualReloadEvent(gunEnt, playerEnt));
+        var gunEnt = GetNetEntity(gun);
+        var playerEnt = GetNetEntity(player);
+        RaisePredictiveEvent(new StellarManualReloadEvent(gunEnt, playerEnt));
     }
 }
 

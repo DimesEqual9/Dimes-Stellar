@@ -2,29 +2,43 @@
 #
 # SPDX-License-Identifier: LicenseRef-Wallening
 
-- type: weather
+- type: entity
+  parent: WeatherBase
   id: StellarWeatherDetailFog
-  scrollSpeed: -0.04, 0.05
-  color: "#7987a7"
-  override: true
-  sprite:
-    sprite: /Textures/_ST/Effects/weather.rsi
-    state: fog
+  components:
+  - type: WeatherStatusEffect
+    scrolling: -0.04, 0.05
+    color: "#7987a7"
+    override: true
+    sprite:
+      sprite: /Textures/_ST/Effects/weather.rsi
+      state: fog
+    sound:
+      collection: Rain
+      params:
+        loop: true
+        volume: -6
 
-- type: weather
+- type: entity
+  parent: WeatherBase
   id: StellarWeatherStationShield
-  scrollSpeed: 0.25, 0.25
-  override: true
-  opacity: 0.2
-  sprite:
-    sprite: /Textures/_ST/Effects/weather.rsi
-    state: shield
+  components:
+  - type: WeatherStatusEffect
+    scrolling: 0.25, 0.25
+    override: true
+    opacity: 0.2
+    sprite:
+      sprite: /Textures/_ST/Effects/weather.rsi
+      state: shield
 
-- type: weather
+- type: entity
+  parent: WeatherBase
   id: StellarWeatherStationHyperShield
-  scrollSpeed: 0.25, 0.25
-  override: true
-  opacity: 0.2
-  sprite:
-    sprite: /Textures/_ST/Effects/weather.rsi
-    state: shield-hyper
+  components:
+  - type: WeatherStatusEffect
+    scrolling: 0.25, 0.25
+    override: true
+    opacity: 0.2
+    sprite:
+      sprite: /Textures/_ST/Effects/weather.rsi
+      state: shield-hyper

@@ -7,15 +7,16 @@
   abstract: true
   id: MobCosmicColossusBase
   name: entropic colossus
-  description: A colossal monstrosity of malign plating and dendritic infestation.
+  description: A colossal monstrosity wrought of malign plating.
+  categories: [ ForkFiltered ]
   components:
   - type: FTLSmashImmune
-  - type: CosmicCultExamine
+  - type: CosmicExamine
     cultistText: cosmic-examine-text-cultentity
     othersText: cosmic-examine-text-entities
   - type: AntagImmune
   - type: StaminaResistance
-    damageCoefficient: 0 # No more stunning colossi
+    damageCoefficient: 0 # You can't stun colossi unless it's directly through code
   - type: Sprite
     drawdepth: Mobs
     sprite: _ST/CosmicCult/Mobs/colossus.rsi
@@ -101,8 +102,8 @@
       gender: epicene
   - type: ProtectedFromStepTriggers
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2
-    baseSprintSpeed: 3
+    baseWalkSpeed: 2.25
+    baseSprintSpeed: 3.25
     baseWeightlessModifier: 1
     weightlessAcceleration: 1.5
     weightlessFriction: 1
@@ -122,21 +123,6 @@
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Metallic
-  - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: Entropy
-        Quantity: 650
-    maxBleedAmount: 0.1
-    bleedReductionAmount: 0.1
-    bloodlossDamage:
-      types:
-        Bloodloss:
-          0
-    bloodlossHealDamage:
-      types:
-        Bloodloss:
-          0
   - type: MobState
     allowedStates:
     - Alive
@@ -163,8 +149,6 @@
       enabled: true
       isLooped: true
       reverseWhenFinished: true
-  - type: ContentEye
-    maxZoom: 1.2, 1.2
   - type: StatusEffects
     allowed:
     - Stutter
@@ -205,7 +189,7 @@
     altDisarm: false
     animation: WeaponArcCosmic
     attackRate: 0.425
-    range: 2
+    range: 3
     damage:
       types:
         Blunt: 25
@@ -213,7 +197,7 @@
         Cold: 5
         Structural: 60
     soundHit:
-      path: /Audio/_ST/CosmicCult/cosmicsword_glance.ogg
+      path: /Audio/_ST/CosmicCult/cosmicsword-glance.ogg
       params:
         variation: 0.2
         volume: 1
@@ -226,10 +210,10 @@
     speed: 8
     distance: 7
   - type: Reflect
-    reflectProb: .95
+    reflectProb: .20
     spread: 120
     soundOnReflect:
-      path: /Audio/_ST/CosmicCult/cosmicsword_glance.ogg
+      path: /Audio/_ST/CosmicCult/cosmicsword-glance.ogg
       params:
         variation: 0.2
         volume: -6
@@ -251,7 +235,7 @@
   categories: [ HideSpawnMenu ]
   id: MobCosmicColossusLone
   suffix: MidRoundAntag
-  description: An ancient monstrosity of malign plating and dendritic infestation.
+  description: An ancient monstrosity wrought of malign plating.
   components:
   - type: RandomMetadata
     nameSegments:
@@ -261,7 +245,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      450: Dead
+      600: Dead
   - type: CosmicCorrupting
     mobile: true
     autoDisable: false
@@ -279,7 +263,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      400: Dead
+      450: Dead
   - type: CosmicColossus
 
 - type: speechSounds
@@ -321,7 +305,7 @@
     anchored: true
   - type: Sprite
     snapCardinals: true
-    sprite: _ST/CosmicCult/Effects/tile_attacks.rsi
+    sprite: _ST/CosmicCult/Effects/tile-attacks.rsi
     offset: 0,0.27
     layers:
     - state: tiledamage_start
@@ -342,7 +326,7 @@
   components:
   - type: Sprite
     snapCardinals: true
-    sprite: _ST/CosmicCult/Effects/tile_attacks.rsi
+    sprite: _ST/CosmicCult/Effects/tile-attacks.rsi
     offset: 0,0.27
     layers:
     - state: tiledamage_end

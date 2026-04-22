@@ -65,10 +65,12 @@ public sealed class RetractableItemActionSystem : EntitySystem
         if (_hands.IsHolding(args.Performer, ent.Comp.ActionItemUid))
         {
             RetractRetractableItem(args.Performer, ent.Comp.ActionItemUid.Value, ent.Owner);
+            _actions.SetToggled(ent.Owner, false); // Stellar
         }
         else
         {
             SummonRetractableItem(args.Performer, ent.Comp.ActionItemUid.Value, activeHand, ent.Owner);
+            _actions.SetToggled(ent.Owner, true); // Stellar
         }
 
         args.Handled = true;

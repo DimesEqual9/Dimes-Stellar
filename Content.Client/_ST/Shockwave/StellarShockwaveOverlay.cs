@@ -17,6 +17,8 @@ public sealed class StellarShockwaveOverlay : Overlay, IEntityEventSubscriber
     [Dependency] private readonly IEntityManager _entMan = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
+    private static readonly ProtoId<ShaderPrototype> StellarShockwave = "StellarShockwave";
+
     private SharedTransformSystem? _xformSystem = null;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
@@ -27,7 +29,7 @@ public sealed class StellarShockwaveOverlay : Overlay, IEntityEventSubscriber
     public StellarShockwaveOverlay()
     {
         IoCManager.InjectDependencies(this);
-        _shader = _prototypeManager.Index<ShaderPrototype>("StellarShockwave").Instance().Duplicate();
+        _shader = _prototypeManager.Index(StellarShockwave).Instance().Duplicate();
     }
 
     private Vector2 _position;
