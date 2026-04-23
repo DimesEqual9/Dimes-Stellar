@@ -90,7 +90,7 @@
   - type: Item
     sprite: _ST/Items/Weapons/Guns/echion-echidna.rsi
   - type: Gun
-    burstCooldown: 0.05
+    burstCooldown: 0.37
     cameraRecoilScalar: 0.75
     minAngle: 1.5
     maxAngle: 18
